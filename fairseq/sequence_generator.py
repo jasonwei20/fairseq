@@ -24,7 +24,7 @@ class SequenceGenerator(nn.Module):
         max_len_a=0,
         max_len_b=200,
         min_len=1,
-        normalize_scores=True,
+        normalize_scores=False,
         len_penalty=1.0,
         unk_penalty=0.0,
         temperature=1.0,
@@ -77,6 +77,7 @@ class SequenceGenerator(nn.Module):
         self.min_len = min_len
 
         self.normalize_scores = normalize_scores
+        print("asdf score normalized", self.normalize_scores)
         self.len_penalty = len_penalty
         self.unk_penalty = unk_penalty
         self.temperature = temperature

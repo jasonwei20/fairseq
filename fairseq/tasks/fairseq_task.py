@@ -349,7 +349,7 @@ class FairseqTask(object):
             max_len_a=getattr(args, "max_len_a", 0),
             max_len_b=getattr(args, "max_len_b", 200),
             min_len=getattr(args, "min_len", 1),
-            normalize_scores=(not getattr(args, "unnormalized", False)),
+            normalize_scores=(not getattr(args, "unnormalized", True)),
             len_penalty=getattr(args, "lenpen", 1),
             unk_penalty=getattr(args, "unkpen", 0),
             temperature=getattr(args, "temperature", 1.0),

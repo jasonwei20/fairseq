@@ -10,9 +10,11 @@ import torch.nn.functional as F
 from fairseq import metrics, utils
 from fairseq.criterions import FairseqCriterion, register_criterion
 
+import random
+random.seed(0)
 
-@register_criterion('cross_entropy')
-class CrossEntropyCriterion(FairseqCriterion):
+@register_criterion('random')
+class RandomCriterion(FairseqCriterion):
 
     def __init__(self, task, sentence_avg):
         super().__init__(task)
@@ -39,20 +41,17 @@ class CrossEntropyCriterion(FairseqCriterion):
 
     def compute_loss(self, model, net_output, sample, reduce=True):
         lprobs = model.get_normalized_probs(net_output, log_probs=True)
-        print('\n\n\n\n')
-        print(lprobs.size())
-        print(lprobs[0, :, :])
         lprobs = lprobs.view(-1, lprobs.size(-1))
-        print(model.get_targets(sample, net_output).size())
-        print(model.get_targets(sample, net_output)[0, :])
         target = model.get_targets(sample, net_output).view(-1)
-        print('\n\n\n\n')
         loss = F.nll_loss(
             lprobs,
             target,
             ignore_index=self.padding_idx,
             reduction='sum' if reduce else 'none',
         )
+        loss *= 0
+        loss += random.uniform(1, 10)
+        
         return loss, loss
 
     @staticmethod

@@ -130,3 +130,12 @@ data-bin/
 
 # Experimental Folder
 experimental/*
+
+# Jason
+checkpoints*
+examples/translation/iwslt14.tokenized.de-en
+examples/translation/orig
+apex/
+examples/translation/mosesdecoder/
+examples/translation/subword-nmt/
+wmt14.en-fr.fconv-py/
