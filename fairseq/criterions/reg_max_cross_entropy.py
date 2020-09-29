@@ -78,11 +78,7 @@ class RegMaxCrossEntropyCriterion(FairseqCriterion):
             ignore_index=self.padding_idx,
             reduction='none',
         )
-
-        # print('\n\n')
-        # print(loss[:5])
-        # print(regs_view[:5])
-        # print('\n\n')
+        
         loss = loss + self.beta * regs_view
         loss = torch.sum(loss)
         
