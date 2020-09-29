@@ -4,19 +4,33 @@
 # LICENSE file in the root directory of this source tree.
 
 import math
+import time
 
+import torch
 import torch.nn.functional as F
 
 from fairseq import metrics, utils
 from fairseq.criterions import FairseqCriterion, register_criterion
 
+import random
+random.seed(0)
 
-@register_criterion('cross_entropy')
-class CrossEntropyCriterion(FairseqCriterion):
+@register_criterion('reg_max_cross_entropy')
+class RegMaxCrossEntropyCriterion(FairseqCriterion):
 
-    def __init__(self, task, sentence_avg):
+    def __init__(self, task, sentence_avg, beta_coefficient):
         super().__init__(task)
         self.sentence_avg = sentence_avg
+        self.beta = beta_coefficient
+        print(f"beta: {self.beta}")
+
+    @staticmethod
+    def add_args(parser):
+        """Add criterion-specific arguments to the parser."""
+        # fmt: off
+        parser.add_argument('--beta-coefficient', default=1.0, type=float,
+                            help='beta for the regularization parameter')
+        # fmt: on
 
     def forward(self, model, sample, reduce=True):
         """Compute the loss for the given sample.
@@ -37,16 +51,41 @@ class CrossEntropyCriterion(FairseqCriterion):
         }
         return loss, sample_size, logging_output
 
+    def compute_max_regularization(self, lprobs, target):
+        neg_lprobs = lprobs * -1
+
+        gt_mask = torch.zeros(lprobs.size()).to(device='cuda').scatter_(2, target.unsqueeze(2), 1.0)
+        gt_probs = neg_lprobs * gt_mask
+        max_probs = torch.max(gt_probs, dim=-1).values
+
+        regs = torch.empty(target.size()).to(device='cuda')
+        for t_i in range(0, target.size()[1]):
+            regs[:, t_i] = torch.max(max_probs[:, :t_i+1], -1).values
+        return regs
+
     def compute_loss(self, model, net_output, sample, reduce=True):
         lprobs = model.get_normalized_probs(net_output, log_probs=True)
-        lprobs = lprobs.view(-1, lprobs.size(-1))
-        target = model.get_targets(sample, net_output).view(-1)
+        target = model.get_targets(sample, net_output)
+        regs = self.compute_max_regularization(lprobs, target)
+
+        lprobs_view = lprobs.view(-1, lprobs.size(-1))
+        target_view = target.view(-1)
+        regs_view = regs.view(-1)
+
         loss = F.nll_loss(
-            lprobs,
-            target,
+            lprobs_view,
+            target_view,
             ignore_index=self.padding_idx,
-            reduction='sum' if reduce else 'none',
+            reduction='none',
         )
+
+        # print('\n\n')
+        # print(loss[:5])
+        # print(regs_view[:5])
+        # print('\n\n')
+        loss = loss + self.beta * regs_view
+        loss = torch.sum(loss)
+        
         return loss, loss
 
     @staticmethod

@@ -573,7 +573,7 @@ def add_generation_args(parser):
     group.add_argument('--max-len-b', default=200, type=int, metavar='N',
                        help=('generate sequences of maximum length ax + b, '
                              'where x is the source length'))
-    group.add_argument('--min-len', default=1, type=float, metavar='N',
+    group.add_argument('--min-len', default=0, type=float, metavar='N',
                        help=('minimum generation length'))
     group.add_argument('--match-source-len', default=False, action='store_true',
                        help=('generations should match the source length'))
