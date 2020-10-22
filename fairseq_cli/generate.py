@@ -21,6 +21,7 @@ from fairseq.logging import progress_bar
 from fairseq.logging.meters import StopwatchMeter, TimeMeter
 from fairseq.data import encoders
 
+from statistics import mean, stdev
 
 def main(args):
     assert args.path is not None, '--path required for generation!'
@@ -139,6 +140,10 @@ def _main(args, output_file):
 
     scorer = scoring.build_scorer(args, tgt_dict)
 
+    ##### begin jason
+    all_word_probs = []
+    ##### end jason
+
     num_sentences = 0
     has_target = True
     wps_meter = TimeMeter()
@@ -218,6 +223,13 @@ def _main(args, output_file):
                     print('H-{}\t{}\t{}'.format(sample_id, score, hypo_str), file=output_file)
                     # detokenized hypothesis
                     print('D-{}\t{}\t{}'.format(sample_id, score, detok_hypo_str), file=output_file)
+
+                    ##### begin jason
+                    word_probs = hypo['positional_scores'].div_(math.log(2)).tolist()
+                    all_word_probs.extend(word_probs)
+                    print(f"jason logging i={i}, j={j}, total_words={len(all_word_probs)}")
+                    ##### end jason
+
                     print('P-{}\t{}'.format(
                         sample_id,
                         ' '.join(map(
@@ -276,6 +288,10 @@ def _main(args, output_file):
         print(
             'Generate {} with beam={}: {}'.format(args.gen_subset, args.beam, scorer.result_string()),
             file=output_file)
+
+    ##### begin jason
+    print(f"log probs from {len(all_word_probs)} words:\nmean={mean(all_word_probs):.3f}, stdev={stdev(all_word_probs):.3f}")
+    ##### end jason
 
     return scorer
 
