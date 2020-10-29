@@ -139,3 +139,4 @@ apex/
 examples/translation/mosesdecoder/
 examples/translation/subword-nmt/
 wmt14.en-fr.fconv-py/
+examples/language_model/wikitext-2/
