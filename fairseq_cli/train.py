@@ -28,7 +28,7 @@ from fairseq.data import iterators
 from fairseq.logging import meters, metrics, progress_bar
 from fairseq.model_parallel.megatron_trainer import MegatronTrainer
 from fairseq.trainer import Trainer
-
+from fairseq_cli import jasons_vis
 
 logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
@@ -120,9 +120,41 @@ def main(args):
     train_meter = meters.StopwatchMeter()
     train_meter.start()
 
+    ##### begin jason #####
+    updates_list = []; ppl_list = []; loss_list = []
+    log_writer = open(os.path.join(args.save_dir, 'train_logs.csv'), 'w')
+    log_writer.write(f'updates,loss,perplexity\n')
+    ##### end jason #####
+
     while lr > args.min_lr and epoch_itr.next_epoch_idx <= max_epoch:
         # train for one epoch
-        valid_losses, should_stop = train(args, trainer, task, epoch_itr)
+        valid_losses, should_stop, stats = train(args, trainer, task, epoch_itr)
+
+        ##### begin jason #####
+        if stats: 
+            updates_list.append(stats['num_updates'])
+            ppl_list.append(stats['ppl'])
+            loss_list.append(stats['loss'])
+            log_writer.write(f"{stats['num_updates']},{stats['loss']},{stats['ppl']}\n")
+
+            jasons_vis.plot_jasons_lineplot(
+                x = updates_list,
+                y = ppl_list,
+                x_label = "Updates",
+                y_label = "Perplexity",
+                title = args.save_dir + f" best_perplexity={min(ppl_list)}",
+                output_png_path = os.path.join(args.save_dir, "train_perplexity.png"),
+            )
+            jasons_vis.plot_jasons_lineplot(
+                x = updates_list,
+                y = loss_list,
+                x_label = "Updates",
+                y_label = "Loss",
+                title = args.save_dir + f" best_loss={min(loss_list)}",
+                output_png_path = os.path.join(args.save_dir, "train_loss.png"),
+            )
+        ##### end jason #####
+
         if should_stop:
             break
 
@@ -221,7 +253,6 @@ def train(args, trainer, task, epoch_itr):
         valid_losses, should_stop = validate_and_save(
             args, trainer, task, epoch_itr, valid_subsets, end_of_epoch
         )
-
         if should_stop:
             break
 
@@ -232,7 +263,7 @@ def train(args, trainer, task, epoch_itr):
 
     # reset epoch-level meters
     metrics.reset_meters("train")
-    return valid_losses, should_stop
+    return valid_losses, should_stop, stats
 
 
 def validate_and_save(args, trainer, task, epoch_itr, valid_subsets, end_of_epoch):
