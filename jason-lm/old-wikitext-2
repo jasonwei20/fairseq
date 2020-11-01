@@ -1,0 +1,40 @@
+DEFAULT MODEL WIKITEXT-2:
+fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir checkpoints-lm/wikitext2_default \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 2048 --update-freq 16 \
+  --fp16 \
+  --max-update 50000 \
+  --no-epoch-checkpoints \
+
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path checkpoints-lm/wikitext2_default/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+DEFAULT MODEL WITH 4 ATTENTION HEADS:
+fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir checkpoints-lm/wikitext2_default_4heads \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 2048 --update-freq 16 \
+  --fp16 \
+  --max-update 50000 \
+  --no-epoch-checkpoints \
+  --decoder-attention-heads 4 \
+
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path checkpoints-lm/wikitext2_default_4heads/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
