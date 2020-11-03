@@ -121,37 +121,42 @@ def main(args):
     train_meter.start()
 
     ##### begin jason #####
-    updates_list = []; ppl_list = []; loss_list = []
+    updates_list = []; train_ppl_list = []; train_loss_list = []; val_ppl_list = []; val_loss_list = []
     log_writer = open(os.path.join(args.save_dir, 'train_logs.csv'), 'w')
-    log_writer.write(f'updates,loss,perplexity\n')
+    log_writer.write(f'updates,train_loss,train_ppl,val_loss,val_ppl\n')
     ##### end jason #####
 
     while lr > args.min_lr and epoch_itr.next_epoch_idx <= max_epoch:
         # train for one epoch
-        valid_losses, should_stop, stats = train(args, trainer, task, epoch_itr)
+        valid_losses, should_stop, train_stats, valid_stats = train(args, trainer, task, epoch_itr)
+        print("hello", valid_stats, train_stats)
 
         ##### begin jason #####
-        if stats: 
-            updates_list.append(stats['num_updates'])
-            ppl_list.append(stats['ppl'])
-            loss_list.append(stats['loss'])
-            log_writer.write(f"{stats['num_updates']},{stats['loss']},{stats['ppl']}\n")
+        if train_stats and valid_stats: 
+            updates_list.append(train_stats['num_updates'])
+            train_loss_list.append(train_stats['loss'])
+            train_ppl_list.append(train_stats['ppl'])
+            val_loss_list.append(valid_stats['loss'])
+            val_ppl_list.append(valid_stats['ppl'])
+            log_writer.write(f"{train_stats['num_updates']},{train_stats['loss']},{train_stats['ppl']},{valid_stats['loss']},{valid_stats['ppl']}\n")
 
             jasons_vis.plot_jasons_lineplot(
-                x = updates_list,
-                y = ppl_list,
-                x_label = "Updates",
-                y_label = "Perplexity",
-                title = args.save_dir + f" best_perplexity={min(ppl_list)}",
-                output_png_path = os.path.join(args.save_dir, "train_perplexity.png"),
+                x_list = updates_list,
+                y_list_list = [train_loss_list, val_loss_list],
+                y_labels_list = ['train', 'dev'], 
+                x_ax_label = "Updates",
+                y_ax_label = "Loss",
+                title = args.save_dir + f" best_val_loss={min(val_loss_list)}",
+                output_png_path = os.path.join(args.save_dir, f"{args.save_dir.split('/')[-1]}_loss.png"),
             )
             jasons_vis.plot_jasons_lineplot(
-                x = updates_list,
-                y = loss_list,
-                x_label = "Updates",
-                y_label = "Loss",
-                title = args.save_dir + f" best_loss={min(loss_list)}",
-                output_png_path = os.path.join(args.save_dir, "train_loss.png"),
+                x_list = updates_list,
+                y_list_list = [train_ppl_list, val_ppl_list],
+                y_labels_list = ['train', 'dev'], 
+                x_ax_label = "Updates",
+                y_ax_label = "Perplexity",
+                title = args.save_dir + f" best_val_perplexity={min(val_ppl_list)}",
+                output_png_path = os.path.join(args.save_dir, f"{args.save_dir.split('/')[-1]}_perplexity.png"),
             )
         ##### end jason #####
 
@@ -250,7 +255,7 @@ def train(args, trainer, task, epoch_itr):
                 metrics.reset_meters("train_inner")
 
         end_of_epoch = not itr.has_next()
-        valid_losses, should_stop = validate_and_save(
+        valid_losses, should_stop, valid_stats = validate_and_save(
             args, trainer, task, epoch_itr, valid_subsets, end_of_epoch
         )
         if should_stop:
@@ -258,12 +263,12 @@ def train(args, trainer, task, epoch_itr):
 
     # log end-of-epoch stats
     logger.info("end of epoch {} (average epoch stats below)".format(epoch_itr.epoch))
-    stats = get_training_stats(metrics.get_smoothed_values("train"))
-    progress.print(stats, tag="train", step=num_updates)
+    train_stats = get_training_stats(metrics.get_smoothed_values("train"))
+    progress.print(train_stats, tag="train", step=num_updates)
 
     # reset epoch-level meters
     metrics.reset_meters("train")
-    return valid_losses, should_stop, stats
+    return valid_losses, should_stop, train_stats, valid_stats
 
 
 def validate_and_save(args, trainer, task, epoch_itr, valid_subsets, end_of_epoch):
@@ -292,8 +297,9 @@ def validate_and_save(args, trainer, task, epoch_itr, valid_subsets, end_of_epoc
 
     # Validate
     valid_losses = [None]
+    valid_stats = [None]
     if do_validate:
-        valid_losses = validate(args, trainer, task, epoch_itr, valid_subsets)
+        valid_losses, valid_stats = validate(args, trainer, task, epoch_itr, valid_subsets)
 
     # Stopping conditions
     should_stop = (
@@ -310,7 +316,7 @@ def validate_and_save(args, trainer, task, epoch_itr, valid_subsets, end_of_epoc
         logger.info("begin save checkpoint")
         checkpoint_utils.save_checkpoint(args, trainer, epoch_itr, valid_losses[0])
 
-    return valid_losses, should_stop
+    return valid_losses, should_stop, valid_stats
 
 
 def get_training_stats(stats):
@@ -352,11 +358,11 @@ def validate(args, trainer, task, epoch_itr, subsets):
                 trainer.valid_step(sample)
 
         # log validation stats
-        stats = get_valid_stats(args, trainer, agg.get_smoothed_values())
-        progress.print(stats, tag=subset, step=trainer.get_num_updates())
+        valid_stats = get_valid_stats(args, trainer, agg.get_smoothed_values())
+        progress.print(valid_stats, tag=subset, step=trainer.get_num_updates())
 
-        valid_losses.append(stats[args.best_checkpoint_metric])
-    return valid_losses
+        valid_losses.append(valid_stats[args.best_checkpoint_metric])
+    return valid_losses, valid_stats
 
 
 def get_valid_stats(args, trainer, stats):
