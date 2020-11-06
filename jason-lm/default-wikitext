@@ -1,7 +1,32 @@
 DEFAULT MODEL WIKITEXT-103:
+(to fix on GPU, reduce max-tokens from 2048 to 512, and update-freq from 16 to 64)
+(run for 300k updates)
 fairseq-train --task language_modeling \
   data-bin/wikitext-103 \
-  --save-dir checkpoints-lm/wikitext103_default \
+  --save-dir checkpoints-lm/wikitext103_default_u300k \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --fp16 \
+  --max-update 300000 \
+  --no-epoch-checkpoints \
+
+fairseq-eval-lm data-bin/wikitext-103 \
+    --path checkpoints-lm/wikitext103_default_u300k/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+
+
+
+DEFAULT MODEL WIKITEXT-103 WITH LABEL SMOOTHING:
+fairseq-train --task language_modeling \
+  data-bin/wikitext-103 \
+  --save-dir checkpoints-lm/wikitext103_label_smooth \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
@@ -9,13 +34,12 @@ fairseq-train --task language_modeling \
   --tokens-per-sample 256 --sample-break-mode none \
   --max-tokens 1024 --update-freq 16 \
   --fp16 \
-  --max-update 50000 \
+  --max-update 100000 \
   --no-epoch-checkpoints \
+  --criterion label_smoothed_cross_entropy --label-smoothing 0.1 \
 
 fairseq-eval-lm data-bin/wikitext-103 \
-    --path checkpoints-lm/wikitext103_default/checkpoint_best.pt \
+    --path checkpoints-lm/wikitext103_label_smooth/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 256 \
     --context-window 200 \
-
-
