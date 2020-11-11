@@ -53,6 +53,7 @@ def main(args):
 
     if distributed_utils.is_master(args):
         checkpoint_utils.verify_checkpoint_directory(args.save_dir)
+        checkpoint_utils.verify_checkpoint_directory(args.jason_log_dir)
 
     # Print args
     logger.info(args)
@@ -124,7 +125,7 @@ def main(args):
     updates_list = []; train_ppl_list = []; train_loss_list = []; val_ppl_list = []; val_loss_list = []
     log_writer = open(os.path.join(args.save_dir, 'train_logs.csv'), 'w')
     log_writer.write(f'updates,train_loss,train_ppl,val_loss,val_ppl\n')
-    backup_writefile = os.path.join(args.save_dir, 'train_logs_backup.csv')
+    backup_writefile = os.path.join(args.jason_log_dir, 'train_logs_backup.csv')
     os.system(f'touch {backup_writefile}')
     os.system(f'echo "updates,train_loss,train_ppl,val_loss,val_ppl" >> {backup_writefile}')
     ##### end jason #####
@@ -151,8 +152,8 @@ def main(args):
                 y_labels_list = ['train', 'dev'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Loss",
-                title = f" best_val_loss={min(val_loss_list)}" + args.save_dir[:20],
-                output_png_path = os.path.join(args.save_dir, f"{args.save_dir.split('/')[-1]}_loss.png"),
+                title = f" best_val_loss={min(val_loss_list)}" + args.jason_log_dir[:20],
+                output_png_path = os.path.join(args.jason_log_dir, f"{args.jason_log_dir.split('/')[-1]}_loss.png"),
             )
             jasons_vis.plot_jasons_lineplot(
                 x_list = updates_list,
@@ -160,8 +161,8 @@ def main(args):
                 y_labels_list = ['train', 'dev'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Perplexity",
-                title = f" best_val_ppl={min(val_ppl_list)}" + args.save_dir[:20],
-                output_png_path = os.path.join(args.save_dir, f"{args.save_dir.split('/')[-1]}_perplexity.png"),
+                title = f" best_val_ppl={min(val_ppl_list)}" + args.jason_log_dir[:20],
+                output_png_path = os.path.join(args.jason_log_dir, f"{args.jason_log_dir.split('/')[-1]}_perplexity.png"),
             )
         ##### end jason #####
 
