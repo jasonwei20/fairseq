@@ -124,6 +124,9 @@ def main(args):
     updates_list = []; train_ppl_list = []; train_loss_list = []; val_ppl_list = []; val_loss_list = []
     log_writer = open(os.path.join(args.save_dir, 'train_logs.csv'), 'w')
     log_writer.write(f'updates,train_loss,train_ppl,val_loss,val_ppl\n')
+    backup_writefile = os.path.join(args.save_dir, 'train_logs_backup.csv')
+    os.system(f'touch {backup_writefile}')
+    os.system(f'echo "updates,train_loss,train_ppl,val_loss,val_ppl" >> {backup_writefile}')
     ##### end jason #####
 
     while lr > args.min_lr and epoch_itr.next_epoch_idx <= max_epoch:
@@ -138,7 +141,9 @@ def main(args):
             train_ppl_list.append(train_stats['ppl'])
             val_loss_list.append(valid_stats['loss'])
             val_ppl_list.append(valid_stats['ppl'])
-            log_writer.write(f"{train_stats['num_updates']},{train_stats['loss']},{train_stats['ppl']},{valid_stats['loss']},{valid_stats['ppl']}\n")
+            log_line = f"{train_stats['num_updates']},{train_stats['loss']},{train_stats['ppl']},{valid_stats['loss']},{valid_stats['ppl']}"
+            log_writer.write(f"{log_line}\n")
+            os.system(f'echo "{log_line}" >> {backup_writefile}')
 
             jasons_vis.plot_jasons_lineplot(
                 x_list = updates_list,
@@ -146,7 +151,7 @@ def main(args):
                 y_labels_list = ['train', 'dev'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Loss",
-                title = args.save_dir + f" best_val_loss={min(val_loss_list)}",
+                title = f" best_val_loss={min(val_loss_list)}" + args.save_dir[:20],
                 output_png_path = os.path.join(args.save_dir, f"{args.save_dir.split('/')[-1]}_loss.png"),
             )
             jasons_vis.plot_jasons_lineplot(
@@ -155,7 +160,7 @@ def main(args):
                 y_labels_list = ['train', 'dev'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Perplexity",
-                title = args.save_dir + f" best_val_perplexity={min(val_ppl_list)}",
+                title = f" best_val_ppl={min(val_ppl_list)}" + args.save_dir[:20],
                 output_png_path = os.path.join(args.save_dir, f"{args.save_dir.split('/')[-1]}_perplexity.png"),
             )
         ##### end jason #####
