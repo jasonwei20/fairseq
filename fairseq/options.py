@@ -480,6 +480,8 @@ def add_checkpoint_args(parser):
     # fmt: off
     group.add_argument('--save-dir', metavar='DIR', default='checkpoints',
                        help='path to save checkpoints')
+    group.add_argument('--jason-log-dir', metavar='DIR', default='checkpoints',
+                       help='path to save checkpoints')
     group.add_argument('--restore-file', default='checkpoint_last.pt',
                        help='filename from which to load checkpoint '
                             '(default: <save-dir>/checkpoint_last.pt')
