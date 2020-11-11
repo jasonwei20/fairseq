@@ -141,3 +141,8 @@ examples/translation/subword-nmt/
 wmt14.en-fr.fconv-py/
 examples/language_model/wikitext-2/
 examples/language_model/wikitext-103/
+env*
+pip-wheel*
+job_outputs
+see_torch_version.py
+jason-lm-logs/
