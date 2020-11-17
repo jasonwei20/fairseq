@@ -44,7 +44,7 @@ class SquaredRegCrossEntropyCriterion(FairseqCriterion):
         sample_size = sample['target'].size(0) if self.sentence_avg else sample['ntokens']
         logging_output = {
             'loss': loss.data,
-            'orig_loss': orig_loss.data
+            'orig_loss': orig_loss.data,
             'ntokens': sample['ntokens'],
             'nsentences': sample['target'].size(0),
             'sample_size': sample_size,
