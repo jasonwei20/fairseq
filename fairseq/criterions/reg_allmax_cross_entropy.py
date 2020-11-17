@@ -41,10 +41,11 @@ class RegAllMaxCrossEntropyCriterion(FairseqCriterion):
         3) logging outputs to display while training
         """
         net_output = model(**sample['net_input'])
-        loss, _ = self.compute_loss(model, net_output, sample, reduce=reduce)
+        loss, orig_loss = self.compute_loss(model, net_output, sample, reduce=reduce)
         sample_size = sample['target'].size(0) if self.sentence_avg else sample['ntokens']
         logging_output = {
             'loss': loss.data,
+            'orig_loss': orig_loss.data,
             'ntokens': sample['ntokens'],
             'nsentences': sample['target'].size(0),
             'sample_size': sample_size,
@@ -58,10 +59,7 @@ class RegAllMaxCrossEntropyCriterion(FairseqCriterion):
         gt_probs = neg_lprobs * gt_mask
         max_probs = torch.max(gt_probs, dim=-1).values
 
-        regs = torch.empty(target.size()).to(device='cuda')
-        for t_i in range(0, target.size()[1]):
-            regs[:, t_i] = torch.max(max_probs[:, :], -1).values
-        return regs
+        return max_probs
 
     def compute_loss(self, model, net_output, sample, reduce=True):
         lprobs = model.get_normalized_probs(net_output, log_probs=True)
@@ -72,22 +70,22 @@ class RegAllMaxCrossEntropyCriterion(FairseqCriterion):
         target_view = target.view(-1)
         regs_view = regs.view(-1)
 
-        loss = F.nll_loss(
+        orig_loss = F.nll_loss(
             lprobs_view,
             target_view,
             ignore_index=self.padding_idx,
             reduction='none',
         )
         
-        loss = loss + self.beta * regs_view
+        loss = orig_loss + self.beta * regs_view
         loss = torch.sum(loss)
         
-        return loss, loss
+        return loss, torch.sum(orig_loss)  # return the original loss (i.e., unregularized loss)
 
     @staticmethod
     def reduce_metrics(logging_outputs) -> None:
         """Aggregate logging outputs from data parallel training."""
-        loss_sum = sum(log.get('loss', 0) for log in logging_outputs)
+        loss_sum = sum(log.get('orig_loss', 0) for log in logging_outputs)
         ntokens = sum(log.get('ntokens', 0) for log in logging_outputs)
         sample_size = sum(log.get('sample_size', 0) for log in logging_outputs)
 
