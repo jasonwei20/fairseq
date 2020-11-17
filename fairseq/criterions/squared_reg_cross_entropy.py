@@ -40,10 +40,11 @@ class SquaredRegCrossEntropyCriterion(FairseqCriterion):
         3) logging outputs to display while training
         """
         net_output = model(**sample['net_input'])
-        loss, _ = self.compute_loss(model, net_output, sample, reduce=reduce)
+        loss, orig_loss = self.compute_loss(model, net_output, sample, reduce=reduce)
         sample_size = sample['target'].size(0) if self.sentence_avg else sample['ntokens']
         logging_output = {
             'loss': loss.data,
+            'orig_loss': orig_loss.data
             'ntokens': sample['ntokens'],
             'nsentences': sample['target'].size(0),
             'sample_size': sample_size,
@@ -54,21 +55,21 @@ class SquaredRegCrossEntropyCriterion(FairseqCriterion):
         lprobs = model.get_normalized_probs(net_output, log_probs=True)
         lprobs = lprobs.view(-1, lprobs.size(-1))
         target = model.get_targets(sample, net_output).view(-1)
-        loss = F.nll_loss(
+        orig_loss = F.nll_loss(
             lprobs,
             target,
             ignore_index=self.padding_idx,
             reduction='none',
         )
-        loss = loss + self.beta * loss**2
+        loss = orig_loss + self.beta * orig_loss**2
         loss = torch.sum(loss)
         
-        return loss, loss
+        return loss, orig_loss
 
     @staticmethod
     def reduce_metrics(logging_outputs) -> None:
         """Aggregate logging outputs from data parallel training."""
-        loss_sum = sum(log.get('loss', 0) for log in logging_outputs)
+        loss_sum = sum(log.get('orig_loss', 0) for log in logging_outputs)
         ntokens = sum(log.get('ntokens', 0) for log in logging_outputs)
         sample_size = sum(log.get('sample_size', 0) for log in logging_outputs)
 
