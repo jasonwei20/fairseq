@@ -29,6 +29,13 @@ bsub -o job_outputs_wt2/default -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" 
   --max-update 50000 \
   --no-epoch-checkpoints --no-last-checkpoints \
 
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/default/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
 
 DEFAULT WITH DROPOUT 0.5
 bsub -o job_outputs_wt2/default_dropout05 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
@@ -44,3 +51,10 @@ bsub -o job_outputs_wt2/default_dropout05 -W 24:00 -R "rusage[mem=32000, ngpus_e
   --max-tokens 512 --update-freq 64 \
   --max-update 50000 \
   --no-epoch-checkpoints --no-last-checkpoints \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/default_dropout05/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
