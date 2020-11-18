@@ -146,3 +146,6 @@ pip-wheel*
 job_outputs
 see_torch_version.py
 jason-lm-logs/
+examples/language_model/wikitext-2-v1.zi*
+job_outputs_wt2/
+jason-lm-logs-wt2/
