@@ -152,7 +152,7 @@ def main(args):
                 y_labels_list = ['train', 'dev'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Loss",
-                title = f" best_val_loss={min(val_loss_list)}" + args.jason_log_dir[:20],
+                title = f" best_val_loss={min(val_loss_list)} " + args.jason_log_dir[:20],
                 output_png_path = os.path.join(args.jason_log_dir, f"{args.jason_log_dir.split('/')[-1]}_loss.png"),
             )
             jasons_vis.plot_jasons_lineplot(
@@ -161,7 +161,7 @@ def main(args):
                 y_labels_list = ['train', 'dev'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Perplexity",
-                title = f" best_val_ppl={min(val_ppl_list)}" + args.jason_log_dir[:20],
+                title = f" best_val_ppl={min(val_ppl_list)} " + args.jason_log_dir[:20],
                 output_png_path = os.path.join(args.jason_log_dir, f"{args.jason_log_dir.split('/')[-1]}_perplexity.png"),
             )
         ##### end jason #####
