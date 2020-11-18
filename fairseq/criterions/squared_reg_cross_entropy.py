@@ -64,7 +64,7 @@ class SquaredRegCrossEntropyCriterion(FairseqCriterion):
         loss = orig_loss + self.beta * orig_loss**2
         loss = torch.sum(loss)
         
-        return loss, orig_loss
+        return loss, torch.sum(orig_loss)
 
     @staticmethod
     def reduce_metrics(logging_outputs) -> None:
