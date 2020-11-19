@@ -58,17 +58,18 @@ class RegAllMaxCrossEntropyCriterion(FairseqCriterion):
         gt_mask = torch.zeros(lprobs.size()).to(device='cuda').scatter_(2, target.unsqueeze(2), 1.0)
         gt_probs = neg_lprobs * gt_mask
         max_probs = torch.max(gt_probs, dim=-1).values
+        max_value = torch.max(max_probs)
+        max_value_scaled = max_probs.size()[-1] * max_value
 
-        return max_probs
+        return max_value_scaled
 
     def compute_loss(self, model, net_output, sample, reduce=True):
         lprobs = model.get_normalized_probs(net_output, log_probs=True)
         target = model.get_targets(sample, net_output)
-        regs = self.compute_allmax_regularization(lprobs, target)
+        max_value_scaled = self.compute_allmax_regularization(lprobs, target)
 
         lprobs_view = lprobs.view(-1, lprobs.size(-1))
         target_view = target.view(-1)
-        regs_view = regs.view(-1)
 
         orig_loss = F.nll_loss(
             lprobs_view,
@@ -77,10 +78,9 @@ class RegAllMaxCrossEntropyCriterion(FairseqCriterion):
             reduction='none',
         )
         
-        loss = orig_loss + self.beta * regs_view
-        loss = torch.sum(loss)
+        loss = torch.sum(orig_loss) + self.beta * max_value_scaled
         
-        return loss, torch.sum(orig_loss)  # return the original loss (i.e., unregularized loss)
+        return loss, torch.sum(orig_loss)  # also return the original loss (i.e., unregularized loss)
 
     @staticmethod
     def reduce_metrics(logging_outputs) -> None:
