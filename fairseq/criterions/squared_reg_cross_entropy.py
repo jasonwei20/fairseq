@@ -61,8 +61,8 @@ class SquaredRegCrossEntropyCriterion(FairseqCriterion):
             ignore_index=self.padding_idx,
             reduction='none',
         )
-        loss = orig_loss + self.beta * orig_loss**2
-        loss = torch.sum(loss)
+        squared_regularizer = torch.sum(torch.mul(orig_loss, orig_loss))
+        loss = torch.sum(orig_loss)+ self.beta * squared_regularizer
         
         return loss, torch.sum(orig_loss)
 
