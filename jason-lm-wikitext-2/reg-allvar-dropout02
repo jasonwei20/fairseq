@@ -1,0 +1,197 @@
+DROPOUT 0.2 + allvar 0.0
+bsub -o job_outputs_wt2/dropout02_allvar00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar00 \
+  --jason-log-dir jason-lm-logs-wt2/dropout02_allvar00 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+############################################################################################################
+
+DROPOUT 0.2 + allvar 0.003
+bsub -o job_outputs_wt2/dropout02_allvar0003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar0003 \
+  --jason-log-dir jason-lm-logs-wt2/dropout02_allvar0003 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.003 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar0003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+############################################################################################################
+
+DROPOUT 0.2 + allvar 0.01
+bsub -o job_outputs_wt2/dropout02_allvar001 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar001 \
+  --jason-log-dir jason-lm-logs-wt2/dropout02_allvar001 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.01 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar001/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+############################################################################################################
+
+DROPOUT 0.2 + allvar 0.03
+bsub -o job_outputs_wt2/dropout02_allvar003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar003 \
+  --jason-log-dir jason-lm-logs-wt2/dropout02_allvar003 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.03 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+############################################################################################################
+
+DROPOUT 0.2 + allvar 0.05
+bsub -o job_outputs_wt2/dropout02_allvar005 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar005 \
+  --jason-log-dir jason-lm-logs-wt2/dropout02_allvar005 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.05 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar005/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+############################################################################################################
+
+DROPOUT 0.2 + allvar 0.1
+bsub -o job_outputs_wt2/dropout02_allvar01 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar01 \
+  --jason-log-dir jason-lm-logs-wt2/dropout02_allvar01 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.1 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar01/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+############################################################################################################
+
+DROPOUT 0.2 + allvar 0.3
+bsub -o job_outputs_wt2/dropout02_allvar03 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar03 \
+  --jason-log-dir jason-lm-logs-wt2/dropout02_allvar03 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.3 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar03/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+
+############################################################################################################
+
+DROPOUT 0.2 + allvar 1.0
+bsub -o job_outputs_wt2/dropout02_allvar10 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar10 \
+  --jason-log-dir jason-lm-logs-wt2/dropout02_allvar10 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 1.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-2 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar10/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
