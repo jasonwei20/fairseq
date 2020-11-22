@@ -149,3 +149,5 @@ jason-lm-logs/
 examples/language_model/wikitext-2-v1.zi*
 job_outputs_wt2/
 jason-lm-logs-wt2/
+jason-lm-test-logs-wt2
+jason-lm-test-logs-wt2/

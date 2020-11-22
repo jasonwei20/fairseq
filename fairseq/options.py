@@ -541,6 +541,8 @@ def add_common_eval_args(group):
                             'that were used during model training')
     group.add_argument('--results-path', metavar='RESDIR', type=str, default=None,
                        help='path to save eval results (optional)"')
+    group.add_argument('--jason-test-output', metavar='FILE',
+                       help='csv file to output losses on the test set')
     # fmt: on
 
 

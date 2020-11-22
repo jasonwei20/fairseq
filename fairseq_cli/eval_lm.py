@@ -157,6 +157,10 @@ def main(parsed_args, **unused_kwargs):
 
     word_stats = dict()
 
+    print(os.path.dirname(args.jason_test_output))
+    checkpoint_utils.verify_checkpoint_directory(os.path.dirname(args.jason_test_output))
+    test_loss_writer = open(args.jason_test_output, 'w')
+
     wps_meter = TimeMeter()
 
     for sample in progress:
@@ -197,8 +201,16 @@ def main(parsed_args, **unused_kwargs):
                     task.target_dictionary.string(tokens[inf_scores.nonzero()])
                 )
                 pos_scores = pos_scores[(~inf_scores).nonzero()]
+            
             score_sum += pos_scores.sum().cpu()
             count += pos_scores.numel() - skipped_toks
+            # print(i, pos_scores.size(), pos_scores.cpu()[-3:], pos_scores.sum().cpu(), pos_scores.numel() - skipped_toks)
+            # print(parsed_args.jason_test_output_dir)
+            pos_scores_cpu = pos_scores.cpu()
+            for j in range(pos_scores_cpu.size()[0]):
+                nll_loss_base2 = - pos_scores_cpu[j].item() / math.log(2)
+                test_loss_writer.write(f"{nll_loss_base2}\n")
+                # print(nll_loss_base2)
 
             if args.output_word_probs or args.output_word_stats:
                 w = ''
