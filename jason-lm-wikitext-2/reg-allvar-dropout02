@@ -14,12 +14,13 @@ bsub -o job_outputs_wt2/dropout02_allvar00 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.0 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar00/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allvar00_testloss.csv \
 
 ############################################################################################################
 
@@ -39,12 +40,13 @@ bsub -o job_outputs_wt2/dropout02_allvar0003 -W 24:00 -R "rusage[mem=32000, ngpu
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.003 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar0003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allvar0003_testloss.csv \
 
 ############################################################################################################
 
@@ -64,12 +66,13 @@ bsub -o job_outputs_wt2/dropout02_allvar001 -W 24:00 -R "rusage[mem=32000, ngpus
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.01 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar001/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allvar001_testloss.csv \
 
 ############################################################################################################
 
@@ -89,12 +92,13 @@ bsub -o job_outputs_wt2/dropout02_allvar003 -W 24:00 -R "rusage[mem=32000, ngpus
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.03 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allvar003_testloss.csv \
 
 ############################################################################################################
 
@@ -114,12 +118,13 @@ bsub -o job_outputs_wt2/dropout02_allvar005 -W 24:00 -R "rusage[mem=32000, ngpus
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.05 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar005/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allvar005_testloss.csv \
 
 ############################################################################################################
 
@@ -139,12 +144,13 @@ bsub -o job_outputs_wt2/dropout02_allvar01 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.1 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar01/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allvar01_testloss.csv \
 
 ############################################################################################################
 
@@ -164,12 +170,13 @@ bsub -o job_outputs_wt2/dropout02_allvar03 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.3 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allvar03/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allvar03_testloss.csv \
 
 ############################################################################################################
 

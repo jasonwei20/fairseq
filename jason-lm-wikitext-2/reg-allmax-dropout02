@@ -53,6 +53,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allmax00_testloss.csv \
 
 ############################################################################################################
 
@@ -72,12 +73,13 @@ bsub -o job_outputs_wt2/dropout02_allmax0003 -W 24:00 -R "rusage[mem=32000, ngpu
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allmax_cross_entropy --beta-coefficient 0.003 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allmax0003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allmax0003_testloss.csv \
 
 ############################################################################################################
 
@@ -97,12 +99,13 @@ bsub -o job_outputs_wt2/dropout02_allmax001 -W 24:00 -R "rusage[mem=32000, ngpus
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allmax_cross_entropy --beta-coefficient 0.01 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allmax001/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allmax001_testloss.csv \
 
 ############################################################################################################
 
@@ -122,12 +125,13 @@ bsub -o job_outputs_wt2/dropout02_allmax003 -W 24:00 -R "rusage[mem=32000, ngpus
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allmax_cross_entropy --beta-coefficient 0.03 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allmax003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allmax003_testloss.csv \
 
 ############################################################################################################
 
@@ -147,12 +151,13 @@ bsub -o job_outputs_wt2/dropout02_allmax01 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allmax_cross_entropy --beta-coefficient 0.1 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allmax01/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allmax01_testloss.csv \
 
 ############################################################################################################
 
@@ -172,12 +177,13 @@ bsub -o job_outputs_wt2/dropout02_allmax02 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allmax_cross_entropy --beta-coefficient 0.2 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allmax02/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allmax02_testloss.csv \
 
 ############################################################################################################
 
@@ -197,12 +203,13 @@ bsub -o job_outputs_wt2/dropout02_allmax03 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allmax_cross_entropy --beta-coefficient 0.3 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout02_allmax03/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout02_allmax03_testloss.csv \
 
 ############################################################################################################
 

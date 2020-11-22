@@ -14,12 +14,13 @@ bsub -o job_outputs_wt2/dropout01_local00 -W 24:00 -R "rusage[mem=32000, ngpus_e
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_local_cross_entropy --beta-coefficient 0.0 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout01_local00/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_local00_testloss.csv \
 
 ############################################################################################################
 
@@ -39,12 +40,13 @@ bsub -o job_outputs_wt2/dropout01_local0001 -W 24:00 -R "rusage[mem=32000, ngpus
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_local_cross_entropy --beta-coefficient 0.001 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout01_local0001/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_local0001_testloss.csv \
 
 ############################################################################################################
 
@@ -64,12 +66,13 @@ bsub -o job_outputs_wt2/dropout01_local0003 -W 24:00 -R "rusage[mem=32000, ngpus
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_local_cross_entropy --beta-coefficient 0.003 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout01_local0003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_local0003_testloss.csv \
 
 ############################################################################################################
 
@@ -89,12 +92,13 @@ bsub -o job_outputs_wt2/dropout01_local001 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_local_cross_entropy --beta-coefficient 0.01 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout01_local001/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_local001_testloss.csv \
 
 ############################################################################################################
 
@@ -114,12 +118,13 @@ bsub -o job_outputs_wt2/dropout01_local003 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_local_cross_entropy --beta-coefficient 0.03 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout01_local003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_local003_testloss.csv \
 
 ############################################################################################################
 
@@ -139,9 +144,10 @@ bsub -o job_outputs_wt2/dropout01_local01 -W 24:00 -R "rusage[mem=32000, ngpus_e
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_local_cross_entropy --beta-coefficient 0.1 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/wikitext-2 \
     --path /cluster/scratch//jaswei/checkpoints-lm-wikitext2/dropout01_local01/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_local01_testloss.csv \
