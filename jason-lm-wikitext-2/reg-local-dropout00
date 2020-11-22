@@ -20,6 +20,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout00_local00_testloss.csv \
 
 ############################################################################################################
 
@@ -45,6 +46,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout00_local0001_testloss.csv \
 
 ############################################################################################################
 
@@ -70,6 +72,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout00_local0003_testloss.csv \
 
 ############################################################################################################
 
@@ -95,6 +98,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout00_local001_testloss.csv \
 
 ############################################################################################################
 
@@ -120,6 +124,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout00_local003_testloss.csv \
 
 ############################################################################################################
 
@@ -145,3 +150,4 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout00_local01_testloss.csv \

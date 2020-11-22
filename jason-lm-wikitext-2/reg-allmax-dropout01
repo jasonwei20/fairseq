@@ -53,6 +53,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_allmax00_testloss.csv
 
 ############################################################################################################
 
@@ -78,6 +79,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_allmax0003_testloss.csv
 
 ############################################################################################################
 
@@ -103,6 +105,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_allmax001_testloss.csv
 
 ############################################################################################################
 
@@ -128,6 +131,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_allmax003_testloss.csv
 
 ############################################################################################################
 
@@ -153,6 +157,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_allmax01_testloss.csv
 
 ############################################################################################################
 
@@ -178,6 +183,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_allmax02_testloss.csv
 
 ############################################################################################################
 
@@ -203,6 +209,7 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_allmax03_testloss.csv
 
 ############################################################################################################
 
@@ -228,3 +235,4 @@ fairseq-eval-lm data-bin/wikitext-2 \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt2/dropout01_allmax10_testloss.csv
