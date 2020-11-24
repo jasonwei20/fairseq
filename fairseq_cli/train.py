@@ -122,12 +122,12 @@ def main(args):
     train_meter.start()
 
     ##### begin jason #####
-    updates_list = []; train_ppl_list = []; train_loss_list = []; val_ppl_list = []; val_loss_list = []
+    updates_list = []; train_ppl_list = []; train_loss_list = []; val_ppl_list = []; val_loss_list = []; train_uid_loss_list = []; val_uid_loss_list = []
     log_writer = open(os.path.join(args.save_dir, 'train_logs.csv'), 'w')
     log_writer.write(f'updates,train_loss,train_ppl,val_loss,val_ppl\n')
     backup_writefile = os.path.join(args.jason_log_dir, 'train_logs_backup.csv')
     os.system(f'touch {backup_writefile}')
-    os.system(f'echo "updates,train_loss,train_ppl,val_loss,val_ppl" >> {backup_writefile}')
+    os.system(f'echo "updates,train_loss,train_ppl,val_loss,val_ppl,train_uid_loss,val_uid_loss" >> {backup_writefile}')
     ##### end jason #####
 
     while lr > args.min_lr and epoch_itr.next_epoch_idx <= max_epoch:
@@ -142,14 +142,16 @@ def main(args):
             train_ppl_list.append(train_stats['ppl'])
             val_loss_list.append(valid_stats['loss'])
             val_ppl_list.append(valid_stats['ppl'])
-            log_line = f"{train_stats['num_updates']},{train_stats['loss']},{train_stats['ppl']},{valid_stats['loss']},{valid_stats['ppl']}"
+            train_uid_loss_list.append(train_stats['uid_loss'])
+            val_uid_loss_list.append(valid_stats['uid_loss'])
+            log_line = f"{train_stats['num_updates']},{train_stats['loss']},{train_stats['ppl']},{valid_stats['loss']},{valid_stats['ppl']},{train_stats['uid_loss']},{valid_stats['uid_loss']}"
             log_writer.write(f"{log_line}\n")
             os.system(f'echo "{log_line}" >> {backup_writefile}')
 
             jasons_vis.plot_jasons_lineplot(
                 x_list = updates_list,
-                y_list_list = [train_loss_list, val_loss_list],
-                y_labels_list = ['train', 'dev'], 
+                y_list_list = [train_loss_list, val_loss_list, train_uid_loss_list, val_uid_loss_list],
+                y_labels_list = ['train', 'dev', 'train uid', 'dev uid'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Loss",
                 title = f" best_val_loss={min(val_loss_list)} " + args.jason_log_dir[:20],
