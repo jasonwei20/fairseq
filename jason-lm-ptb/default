@@ -1,0 +1,157 @@
+DEFAULT FOR DIFFERENT DROPOUTS USING ALLMAX WITH BETA=0.0
+
+DROPOUT 0.0
+bsub -o job_outputs_ptb2/dropout00_local00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/ptb \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout00_local00 \
+  --jason-log-dir jason-lm-logs-ptb2/dropout00_local00 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.0 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allmax_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/ptb \
+    --path /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout00_local00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-ptb2/dropout00_local00_testloss.csv \
+
+############################################################################################################
+
+DROPOUT 0.1
+bsub -o job_outputs_ptb2/dropout01_local00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/ptb \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout01_local00 \
+  --jason-log-dir jason-lm-logs-ptb2/dropout01_local00 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allmax_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/ptb \
+    --path /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout01_local00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-ptb2/dropout01_local00_testloss.csv \
+
+############################################################################################################
+
+DROPOUT 0.2
+bsub -o job_outputs_ptb2/dropout02_local00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/ptb \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout02_local00 \
+  --jason-log-dir jason-lm-logs-ptb2/dropout02_local00 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allmax_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/ptb \
+    --path /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout02_local00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-ptb2/dropout02_local00_testloss.csv \
+
+############################################################################################################
+
+DROPOUT 0.3
+bsub -o job_outputs_ptb2/dropout03_local00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/ptb \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout03_local00 \
+  --jason-log-dir jason-lm-logs-ptb2/dropout03_local00 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.3 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allmax_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/ptb \
+    --path /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout03_local00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-ptb2/dropout02_local00_testloss.csv \
+
+############################################################################################################
+
+DROPOUT 0.4
+bsub -o job_outputs_ptb2/dropout04_local00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/ptb \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout04_local00 \
+  --jason-log-dir jason-lm-logs-ptb2/dropout04_local00 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.4 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allmax_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/ptb \
+    --path /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout04_local00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-ptb2/dropout04_local00_testloss.csv \
+
+############################################################################################################
+
+DROPOUT 0.5
+bsub -o job_outputs_ptb2/dropout05_local00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/ptb \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout05_local00 \
+  --jason-log-dir jason-lm-logs-ptb2/dropout05_local00 \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.5 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 20000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allmax_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/ptb \
+    --path /cluster/scratch//jaswei/checkpoints-lm-ptb2/dropout05_local00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-ptb2/dropout02_local00_testloss.csv \
+
+############################################################################################################
