@@ -41,11 +41,12 @@ class RegAllVarCrossEntropyCriterion(FairseqCriterion):
         3) logging outputs to display while training
         """
         net_output = model(**sample['net_input'])
-        loss, orig_loss = self.compute_loss(model, net_output, sample, reduce=reduce)
+        loss, orig_loss, uid_loss = self.compute_loss(model, net_output, sample, reduce=reduce)
         sample_size = sample['target'].size(0) if self.sentence_avg else sample['ntokens']
         logging_output = {
             'loss': loss.data,
             'orig_loss': orig_loss.data,
+            'uid_loss': uid_loss.data,
             'ntokens': sample['ntokens'],
             'nsentences': sample['target'].size(0),
             'sample_size': sample_size,
@@ -69,7 +70,7 @@ class RegAllVarCrossEntropyCriterion(FairseqCriterion):
         variance_regularizer = torch.var(orig_loss) * orig_loss.size()[-1]
         loss = torch.sum(orig_loss) + self.beta * variance_regularizer
         
-        return loss, torch.sum(orig_loss)
+        return loss, torch.sum(orig_loss), variance_regularizer
 
     @staticmethod
     def reduce_metrics(logging_outputs) -> None:
@@ -77,8 +78,10 @@ class RegAllVarCrossEntropyCriterion(FairseqCriterion):
         loss_sum = sum(log.get('orig_loss', 0) for log in logging_outputs)
         ntokens = sum(log.get('ntokens', 0) for log in logging_outputs)
         sample_size = sum(log.get('sample_size', 0) for log in logging_outputs)
+        uid_loss_sum = sum(log.get('uid_loss', 0) for log in logging_outputs)
 
         metrics.log_scalar('loss', loss_sum / sample_size / math.log(2), sample_size, round=3)
+        metrics.log_scalar('uid_loss', uid_loss_sum / sample_size / math.log(2), sample_size, round=3)
         if sample_size != ntokens:
             metrics.log_scalar('nll_loss', loss_sum / ntokens / math.log(2), ntokens, round=3)
             metrics.log_derived('ppl', lambda meters: utils.get_perplexity(meters['nll_loss'].avg))

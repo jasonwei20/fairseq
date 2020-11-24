@@ -41,11 +41,12 @@ class RegLocalCrossEntropyCriterion(FairseqCriterion):
         3) logging outputs to display while training
         """
         net_output = model(**sample['net_input'])
-        loss, orig_loss = self.compute_loss(model, net_output, sample, reduce=reduce)
+        loss, orig_loss, uid_loss = self.compute_loss(model, net_output, sample, reduce=reduce)
         sample_size = sample['target'].size(0) if self.sentence_avg else sample['ntokens']
         logging_output = {
             'loss': loss.data,
             'orig_loss': orig_loss.data,
+            'uid_loss': uid_loss.data,
             'ntokens': sample['ntokens'],
             'nsentences': sample['target'].size(0),
             'sample_size': sample_size,
@@ -75,7 +76,7 @@ class RegLocalCrossEntropyCriterion(FairseqCriterion):
         local_consistency = self.compute_local_consistency(orig_loss)
         loss = torch.sum(orig_loss) + self.beta * torch.sum(local_consistency)
         
-        return loss, torch.sum(orig_loss)  # also return the original loss (i.e., unregularized loss)
+        return loss, torch.sum(orig_loss), torch.sum(local_consistency)  # also return the original loss (i.e., unregularized loss)
 
     @staticmethod
     def reduce_metrics(logging_outputs) -> None:
@@ -83,8 +84,10 @@ class RegLocalCrossEntropyCriterion(FairseqCriterion):
         loss_sum = sum(log.get('orig_loss', 0) for log in logging_outputs)
         ntokens = sum(log.get('ntokens', 0) for log in logging_outputs)
         sample_size = sum(log.get('sample_size', 0) for log in logging_outputs)
+        uid_loss_sum = sum(log.get('uid_loss', 0) for log in logging_outputs)
 
         metrics.log_scalar('loss', loss_sum / sample_size / math.log(2), sample_size, round=3)
+        metrics.log_scalar('uid_loss', uid_loss_sum / sample_size / math.log(2), sample_size, round=3)
         if sample_size != ntokens:
             metrics.log_scalar('nll_loss', loss_sum / ntokens / math.log(2), ntokens, round=3)
             metrics.log_derived('ppl', lambda meters: utils.get_perplexity(meters['nll_loss'].avg))
