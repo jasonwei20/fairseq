@@ -148,13 +148,18 @@ def main(args):
             log_writer.write(f"{log_line}\n")
             os.system(f'echo "{log_line}" >> {backup_writefile}')
 
+            best_val_loss = min(val_loss_list)
+            best_val_loss_idx = val_loss_list.index(best_val_loss)
+            updates_to_best_val_loss = updates_list[best_val_loss_idx]
+            train_loss_at_best_val_loss = train_loss_list[best_val_loss_idx]
+
             jasons_vis.plot_jasons_lineplot(
                 x_list = updates_list,
                 y_list_list = [train_loss_list, val_loss_list, train_uid_loss_list, val_uid_loss_list],
                 y_labels_list = ['train', 'dev', 'train uid', 'dev uid'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Loss",
-                title = f" best_val_loss={min(val_loss_list)} " + args.jason_log_dir[:20],
+                title = f"dev_l={best_val_loss} updates={updates_to_best_val_loss} train_l={train_loss_at_best_val_loss}",
                 output_png_path = os.path.join(args.jason_log_dir, f"{args.jason_log_dir.split('/')[-1]}_loss.png"),
             )
             jasons_vis.plot_jasons_lineplot(
@@ -163,7 +168,7 @@ def main(args):
                 y_labels_list = ['train', 'dev'], 
                 x_ax_label = "Updates",
                 y_ax_label = "Perplexity",
-                title = f" best_val_ppl={min(val_ppl_list)} " + args.jason_log_dir[:20],
+                title = f" best_val_ppl={best_val_loss} " + args.jason_log_dir[:20],
                 output_png_path = os.path.join(args.jason_log_dir, f"{args.jason_log_dir.split('/')[-1]}_perplexity.png"),
             )
         ##### end jason #####
