@@ -1,0 +1,140 @@
+############################################################################################################
+to test: 
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+############################################################################################################
+
+
+WT103, VANILLA TRANSFORMER, ALLVAR 0.0
+bsub -o job_outputs-wt103/allvar00 -W 120:00 -R "rusage[mem=32000, ngpus_excl_p=1]" -R "select[gpu_model0==GeForceRTX2080Ti]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-103 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar00 \
+  --jason-log-dir jason-lm-logs-wt103/allvar00 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 300000 \
+  --fp16 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-103 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103/default_allvar00_testloss.csv \
+
+############################################################################################################
+
+WT103, VANILLA TRANSFORMER, ALLVAR 0.003
+bsub -o job_outputs-wt103/allvar0003 -W 120:00 -R "rusage[mem=32000, ngpus_excl_p=1]" -R "select[gpu_model0==GeForceRTX2080Ti]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-103 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar0003 \
+  --jason-log-dir jason-lm-logs-wt103/allvar0003 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 300000 \
+  --fp16 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.003 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-103 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar0003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103/default_allvar0003_testloss.csv \
+
+############################################################################################################
+
+WT103, VANILLA TRANSFORMER, ALLVAR 0.01
+bsub -o job_outputs-wt103/allvar001 -W 120:00 -R "rusage[mem=32000, ngpus_excl_p=1]" -R "select[gpu_model0==GeForceRTX2080Ti]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-103 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar001 \
+  --jason-log-dir jason-lm-logs-wt103/allvar001 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 300000 \
+  --fp16 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.01 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-103 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar001/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103/default_allvar001_testloss.csv \
+
+############################################################################################################
+
+WT103, VANILLA TRANSFORMER, ALLVAR 0.03
+bsub -o job_outputs-wt103/allvar003 -W 120:00 -R "rusage[mem=32000, ngpus_excl_p=1]" -R "select[gpu_model0==GeForceRTX2080Ti]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-103 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar003 \
+  --jason-log-dir jason-lm-logs-wt103/allvar003 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 300000 \
+  --fp16 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.03 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-103 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103/default_allvar003_testloss.csv \
+
+############################################################################################################
+
+WT103, VANILLA TRANSFORMER, ALLVAR 0.06
+bsub -o job_outputs-wt103/allvar006 -W 120:00 -R "rusage[mem=32000, ngpus_excl_p=1]" -R "select[gpu_model0==GeForceRTX2080Ti]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-103 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar006 \
+  --jason-log-dir jason-lm-logs-wt103/allvar006 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 300000 \
+  --fp16 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.06 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/wikitext-103 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-wt103/allvar006/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103/default_allvar006_testloss.csv \
+
+############################################################################################################

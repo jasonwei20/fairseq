@@ -233,7 +233,7 @@ def transformer_lm_small(args):
     base_lm_architecture(args)
 
 @register_model_architecture('transformer_lm', 'transformer_lm_tiny')
-def transformer_lm_small(args):
+def transformer_lm_tiny(args):
     args.decoder_layers = getattr(args, 'decoder_layers', 3)
     args.decoder_embed_dim = getattr(args, 'decoder_embed_dim', 128)
     args.decoder_ffn_embed_dim = getattr(args, 'decoder_ffn_embed_dim', 512)
