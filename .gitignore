@@ -158,3 +158,5 @@ jason-lm-logs-ptb-tiny
 jason-lm-logs-ptb
 job_outputs-wt103
 jason-lm-logs-wt103-old
+examples/language_model/europarl*
+jason-lm-logs*
