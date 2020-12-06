@@ -1,0 +1,50 @@
+
+RUN IN ENV
+WITH UID LOSS DROPOUT DROPOUT 0.2 + allvar 0.03
+bsub -o job_outputs_wt2_apextest/withuid_dropout02_allvar003_no_apex -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2-apextest/withuid_dropout02_allvar003_no_apex \
+  --jason-log-dir jason-lm-logs-wt2-apextest/withuid_dropout02_allvar003_no_apex \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 10000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.03 \
+
+RUN IN ENV2
+WITH UID LOSS DROPOUT DROPOUT 0.2 + allvar 0.03
+bsub -o job_outputs_wt2_apextest/withuid_dropout02_allvar003_with_apex -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2-apextest/withuid_dropout02_allvar003_with_apex \
+  --jason-log-dir jason-lm-logs-wt2-apextest/withuid_dropout02_allvar003_with_apex \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 10000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.03 \
+
+TESTING
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/wikitext-2 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-wikitext2-apextest/testing \
+  --jason-log-dir jason-lm-logs-wt2-apextest/testing \
+  --arch transformer_lm_small --share-decoder-input-output-embed \
+  --dropout 0.2 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 10000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.03 \
