@@ -13,7 +13,7 @@ def compute_permutation_stat(z, y):
 
     pooled = np.hstack([z, y])
     delta = z.mean() - y.mean()
-    numSamples = 1000
+    numSamples = 5000
     estimates = []
     for i in tqdm(range(numSamples)):
         estimates.append(run_permutation_test(pooled,z.size,y.size,delta))
