@@ -161,3 +161,5 @@ jason-lm-logs-wt103-old
 examples/language_model/europarl*
 jason-lm-logs*
 lsf*
+jason-lm-test-logs*
+examples/language_model/europv7-en
