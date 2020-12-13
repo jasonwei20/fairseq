@@ -142,6 +142,9 @@ def main(args):
             train_ppl_list.append(train_stats['ppl'])
             val_loss_list.append(valid_stats['loss'])
             val_ppl_list.append(valid_stats['ppl'])
+            if 'uid_loss' not in train_stats:
+                train_stats['uid_loss'] = -1
+                valid_stats['uid_loss'] = -1
             train_uid_loss_list.append(train_stats['uid_loss'])
             val_uid_loss_list.append(valid_stats['uid_loss'])
             log_line = f"{train_stats['num_updates']},{train_stats['loss']},{train_stats['ppl']},{valid_stats['loss']},{valid_stats['ppl']},{train_stats['uid_loss']},{valid_stats['uid_loss']}"

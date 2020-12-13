@@ -3,198 +3,183 @@ to test:
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 ############################################################################################################
 
-europarl-es, VANILLA TRANSFORMER, ALLVAR 0.0
-bsub -o job_outputs-europarl-es/label_smoothed -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
-  fairseq-train --task language_modeling \
-  data-bin/europarl-es-moses \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-es/label_smoothed \
-  --jason-log-dir jason-lm-logs-europarl-es/label_smoothed \
-  --arch transformer_lm --share-decoder-input-output-embed \
-  --dropout 0.1 \
-  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
-  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
-  --tokens-per-sample 512 --sample-break-mode none \
-  --max-tokens 512 --update-freq 64 \
-  --max-update 15000 \
-  --no-epoch-checkpoints --no-last-checkpoints \
-  --criterion label_smoothed_cross_entropy --label-smoothing 0.1 \
 
-europarl-es, VANILLA TRANSFORMER, ALLVAR 0.0
-bsub -o job_outputs-europarl-es/allvar00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en8, VANILLA TRANSFORMER, ALLVAR 0.0
+bsub -o job_outputs-europv7-en8/allvar00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
-  data-bin/europarl-es-moses \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar00 \
-  --jason-log-dir jason-lm-logs-europarl-es/allvar00 \
+  data-bin/europv7-en8 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar00 \
+  --jason-log-dir jason-lm-logs-europv7-en8/allvar00 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
   --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
   --tokens-per-sample 512 --sample-break-mode none \
   --max-tokens 512 --update-freq 64 \
-  --max-update 150000 \
+  --max-update 40000 \
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.0 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
-fairseq-eval-lm data-bin/europarl-es-moses \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar00/checkpoint_best.pt \
+fairseq-eval-lm data-bin/europv7-en8 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar00/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europarl-es/default_allvar00_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en8/default_allvar00_testloss.csv \
 
 ############################################################################################################
 
-europarl-es, VANILLA TRANSFORMER, ALLVAR 0.003
-bsub -o job_outputs-europarl-es/allvar0003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en8, VANILLA TRANSFORMER, ALLVAR 0.003
+bsub -o job_outputs-europv7-en8/allvar0003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
-  data-bin/europarl-es-moses \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar0003 \
-  --jason-log-dir jason-lm-logs-europarl-es/allvar0003 \
+  data-bin/europv7-en8 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar0003 \
+  --jason-log-dir jason-lm-logs-europv7-en8/allvar0003 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
   --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
   --tokens-per-sample 512 --sample-break-mode none \
   --max-tokens 512 --update-freq 64 \
-  --max-update 150000 \
+  --max-update 40000 \
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.003 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
-fairseq-eval-lm data-bin/europarl-es-moses \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar0003/checkpoint_best.pt \
+fairseq-eval-lm data-bin/europv7-en8 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar0003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europarl-es/default_allvar0003_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en8/default_allvar0003_testloss.csv \
 
 ############################################################################################################
 
-europarl-es, VANILLA TRANSFORMER, ALLVAR 0.01
-bsub -o job_outputs-europarl-es/allvar001 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en8, VANILLA TRANSFORMER, ALLVAR 0.01
+bsub -o job_outputs-europv7-en8/allvar001 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
-  data-bin/europarl-es-moses \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar001 \
-  --jason-log-dir jason-lm-logs-europarl-es/allvar001 \
+  data-bin/europv7-en8 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar001 \
+  --jason-log-dir jason-lm-logs-europv7-en8/allvar001 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
   --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
   --tokens-per-sample 512 --sample-break-mode none \
   --max-tokens 512 --update-freq 64 \
-  --max-update 150000 \
+  --max-update 40000 \
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.01 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
-fairseq-eval-lm data-bin/europarl-es-moses \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar001/checkpoint_best.pt \
+fairseq-eval-lm data-bin/europv7-en8 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar001/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europarl-es/default_allvar001_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en8/default_allvar001_testloss.csv \
 
 ############################################################################################################
 
-europarl-es, VANILLA TRANSFORMER, ALLVAR 0.03
-bsub -o job_outputs-europarl-es/allvar003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en8, VANILLA TRANSFORMER, ALLVAR 0.03
+bsub -o job_outputs-europv7-en8/allvar003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
-  data-bin/europarl-es-moses \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar003 \
-  --jason-log-dir jason-lm-logs-europarl-es/allvar003 \
+  data-bin/europv7-en8 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar003 \
+  --jason-log-dir jason-lm-logs-europv7-en8/allvar003 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
   --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
   --tokens-per-sample 512 --sample-break-mode none \
   --max-tokens 512 --update-freq 64 \
-  --max-update 150000 \
+  --max-update 40000 \
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.03 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
-fairseq-eval-lm data-bin/europarl-es-moses \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar003/checkpoint_best.pt \
+fairseq-eval-lm data-bin/europv7-en8 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europarl-es/default_allvar003_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en8/default_allvar003_testloss.csv \
 
 ############################################################################################################
 
-europarl-es, VANILLA TRANSFORMER, ALLVAR 0.05
-bsub -o job_outputs-europarl-es/allvar005 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en8, VANILLA TRANSFORMER, ALLVAR 0.05
+bsub -o job_outputs-europv7-en8/allvar005 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
-  data-bin/europarl-es-moses \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar005 \
-  --jason-log-dir jason-lm-logs-europarl-es/allvar005 \
+  data-bin/europv7-en8 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar005 \
+  --jason-log-dir jason-lm-logs-europv7-en8/allvar005 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
   --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
   --tokens-per-sample 512 --sample-break-mode none \
   --max-tokens 512 --update-freq 64 \
-  --max-update 150000 \
+  --max-update 40000 \
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.05 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
-fairseq-eval-lm data-bin/europarl-es-moses \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar005/checkpoint_best.pt \
+fairseq-eval-lm data-bin/europv7-en8 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar005/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europarl-es/default_allvar005_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en8/default_allvar005_testloss.csv \
 
 ############################################################################################################
 
-europarl-es, VANILLA TRANSFORMER, ALLVAR 0.1
-bsub -o job_outputs-europarl-es/allvar01 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en8, VANILLA TRANSFORMER, ALLVAR 0.1
+bsub -o job_outputs-europv7-en8/allvar01 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
-  data-bin/europarl-es-moses \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar01 \
-  --jason-log-dir jason-lm-logs-europarl-es/allvar01 \
+  data-bin/europv7-en8 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar01 \
+  --jason-log-dir jason-lm-logs-europv7-en8/allvar01 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
   --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
   --tokens-per-sample 512 --sample-break-mode none \
   --max-tokens 512 --update-freq 64 \
-  --max-update 150000 \
+  --max-update 40000 \
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.1 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
-fairseq-eval-lm data-bin/europarl-es-moses \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar01/checkpoint_best.pt \
+fairseq-eval-lm data-bin/europv7-en8 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar01/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europarl-es/default_allvar01_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en8/default_allvar01_testloss.csv \
 
 ############################################################################################################
 
-europarl-es, VANILLA TRANSFORMER, ALLVAR 0.2
-bsub -o job_outputs-europarl-es/allvar02 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en8, VANILLA TRANSFORMER, ALLVAR 0.2
+bsub -o job_outputs-europv7-en8/allvar02 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
-  data-bin/europarl-es-moses \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar02 \
-  --jason-log-dir jason-lm-logs-europarl-es/allvar02 \
+  data-bin/europv7-en8 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar02 \
+  --jason-log-dir jason-lm-logs-europv7-en8/allvar02 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
   --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
   --tokens-per-sample 512 --sample-break-mode none \
   --max-tokens 512 --update-freq 64 \
-  --max-update 150000 \
+  --max-update 40000 \
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.2 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
-fairseq-eval-lm data-bin/europarl-es-moses \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-es/allvar02/checkpoint_best.pt \
+fairseq-eval-lm data-bin/europv7-en8 \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en8/allvar02/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europarl-es/default_allvar02_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en8/default_allvar02_testloss.csv \
