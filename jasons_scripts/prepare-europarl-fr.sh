@@ -2,6 +2,7 @@
 TEXT=examples/language_model/europarl-fr
 fairseq-preprocess \
     --only-source \
+    --nwordssrc 64000 \
     --trainpref $TEXT/moseseuroparlutf.fr.srilm \
     --validpref $TEXT/mosesdev2006utf.fr \
     --testpref $TEXT/mosesdevtest2006utf.fr \

@@ -1,0 +1,210 @@
+############################################################################################################
+to test: 
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+############################################################################################################
+
+europarl-en, VANILLA TRANSFORMER, local 0.0
+bsub -o job_outputs-europarl-en/local00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/europarl-en-moses \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local00 \
+  --jason-log-dir jason-lm-logs-europarl-en/local00 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 15000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/europarl-en-moses \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-europarl-en/default_local00_testloss.csv \
+
+############################################################################################################
+
+europarl-en, VANILLA TRANSFORMER, local 0.001
+bsub -o job_outputs-europarl-en/local0001 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/europarl-en-moses \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local0001 \
+  --jason-log-dir jason-lm-logs-europarl-en/local0001 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 15000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.001 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/europarl-en-moses \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local0001/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-europarl-en/default_local0001_testloss.csv \
+
+############################################################################################################
+
+europarl-en, VANILLA TRANSFORMER, local 0.003
+bsub -o job_outputs-europarl-en/local0003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/europarl-en-moses \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local0003 \
+  --jason-log-dir jason-lm-logs-europarl-en/local0003 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 15000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.003 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/europarl-en-moses \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local0003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-europarl-en/default_local0003_testloss.csv \
+
+############################################################################################################
+
+europarl-en, VANILLA TRANSFORMER, local 0.005
+bsub -o job_outputs-europarl-en/local0005 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/europarl-en-moses \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local0005 \
+  --jason-log-dir jason-lm-logs-europarl-en/local0005 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 15000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.005 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/europarl-en-moses \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local0005/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-europarl-en/default_local0005_testloss.csv \
+
+############################################################################################################
+
+europarl-en, VANILLA TRANSFORMER, local 0.01
+bsub -o job_outputs-europarl-en/local001 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/europarl-en-moses \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local001 \
+  --jason-log-dir jason-lm-logs-europarl-en/local001 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 15000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.01 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/europarl-en-moses \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local001/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-europarl-en/default_local001_testloss.csv \
+
+############################################################################################################
+
+europarl-en, VANILLA TRANSFORMER, local 0.02
+bsub -o job_outputs-europarl-en/local002 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/europarl-en-moses \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local002 \
+  --jason-log-dir jason-lm-logs-europarl-en/local002 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 15000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.02 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/europarl-en-moses \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local002/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-europarl-en/default_local002_testloss.csv \
+
+############################################################################################################
+
+europarl-en, VANILLA TRANSFORMER, local 0.03
+bsub -o job_outputs-europarl-en/local003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/europarl-en-moses \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local003 \
+  --jason-log-dir jason-lm-logs-europarl-en/local003 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 15000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.03 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/europarl-en-moses \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-europarl-en/default_local003_testloss.csv \
+
+############################################################################################################
+
+europarl-en, VANILLA TRANSFORMER, local 0.1
+bsub -o job_outputs-europarl-en/local01 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/europarl-en-moses \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local01 \
+  --jason-log-dir jason-lm-logs-europarl-en/local01 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 15000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.1 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/europarl-en-moses \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europarl-en/local01/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-europarl-en/default_local01_testloss.csv \
