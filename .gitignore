@@ -163,3 +163,7 @@ jason-lm-logs*
 lsf*
 jason-lm-test-logs*
 examples/language_model/europv7-en
+z_old*
+generation_checkpoints*
+generated-outputs*
+generation-checkpoints*

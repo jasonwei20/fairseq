@@ -42,7 +42,7 @@ fairseq-preprocess \
 ```
 
 Train the model with different beta coefficients. Gotta change a couple of things:
-- `--save-dir`: where to save the checkpoints (only keeping the last)
+- `--save-dir`: where to save the checkpoints (only keeping the best)
 - `--jason-log-dir`: where to save the logging (i.e., the results)
 - Based on the memory of your GPU, change `--max-tokens` and `--update-freq` accordingly. 
 - Make sure `--beta-coefficient` is what you want. 
