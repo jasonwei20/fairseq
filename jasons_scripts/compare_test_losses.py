@@ -28,8 +28,8 @@ def read_file(file_path):
     return np.array(loss_list)
 
 if __name__ == "__main__":
-    loss_list_1 = read_file("jason-lm-test-logs-wt2/dropout02_allvar003_testloss.csv") #this one should be lower (better)
-    loss_list_2 = read_file("jason-lm-test-logs-wt2/dropout02_allvar00_testloss.csv") 
+    loss_list_1 = read_file("jason-lm-test-logs-europarl-es/default_local002_testloss.csv") #this one should be lower (better)
+    loss_list_2 = read_file("jason-lm-test-logs-europarl-es/default_allvar00_testloss.csv") 
 
     hat_asl_perm = compute_permutation_stat(loss_list_2, loss_list_1)
     print(f"list_1_mean:{mean(loss_list_1):.5f}, \t list_2_mean:{mean(loss_list_2):.5f}, \t p value of (l1 < l2)={hat_asl_perm:.4f}")

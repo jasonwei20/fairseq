@@ -3,13 +3,12 @@ to test:
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 ############################################################################################################
 
-
-europv7-en32, VANILLA TRANSFORMER, allmax 0.0
-bsub -o job_outputs-europv7-en32/allmax00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en32, VANILLA TRANSFORMER, local 0.003
+bsub -o job_outputs-europv7-en32/local0003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
   data-bin/europv7-en32 \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax00 \
-  --jason-log-dir jason-lm-logs-europv7-en32/allmax00 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local0003 \
+  --jason-log-dir jason-lm-logs-europv7-en32/local0003 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
@@ -18,24 +17,24 @@ bsub -o job_outputs-europv7-en32/allmax00 -W 24:00 -R "rusage[mem=32000, ngpus_e
   --max-tokens 512 --update-freq 64 \
   --max-update 80000 \
   --no-epoch-checkpoints --no-last-checkpoints \
-  --criterion reg_allmax_cross_entropy --beta-coefficient 0.0 \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.003 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-en32 \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax00/checkpoint_best.pt \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local0003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en32/default_allmax00_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en32/default_local0003_testloss.csv \
 
 ############################################################################################################
 
-europv7-en32, VANILLA TRANSFORMER, allmax 0.003
-bsub -o job_outputs-europv7-en32/allmax0003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en32, VANILLA TRANSFORMER, local 0.007
+bsub -o job_outputs-europv7-en32/local0007 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
   data-bin/europv7-en32 \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax0003 \
-  --jason-log-dir jason-lm-logs-europv7-en32/allmax0003 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local0007 \
+  --jason-log-dir jason-lm-logs-europv7-en32/local0007 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
@@ -44,24 +43,24 @@ bsub -o job_outputs-europv7-en32/allmax0003 -W 24:00 -R "rusage[mem=32000, ngpus
   --max-tokens 512 --update-freq 64 \
   --max-update 80000 \
   --no-epoch-checkpoints --no-last-checkpoints \
-  --criterion reg_allmax_cross_entropy --beta-coefficient 0.003 \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.007 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-en32 \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax0003/checkpoint_best.pt \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local0007/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en32/default_allmax0003_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en32/default_local0007_testloss.csv \
 
 ############################################################################################################
 
-europv7-en32, VANILLA TRANSFORMER, allmax 0.01
-bsub -o job_outputs-europv7-en32/allmax001 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en32, VANILLA TRANSFORMER, local 0.01
+bsub -o job_outputs-europv7-en32/local001 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
   data-bin/europv7-en32 \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax001 \
-  --jason-log-dir jason-lm-logs-europv7-en32/allmax001 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local001 \
+  --jason-log-dir jason-lm-logs-europv7-en32/local001 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
@@ -70,24 +69,24 @@ bsub -o job_outputs-europv7-en32/allmax001 -W 24:00 -R "rusage[mem=32000, ngpus_
   --max-tokens 512 --update-freq 64 \
   --max-update 80000 \
   --no-epoch-checkpoints --no-last-checkpoints \
-  --criterion reg_allmax_cross_entropy --beta-coefficient 0.01 \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.01 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-en32 \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax001/checkpoint_best.pt \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local001/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en32/default_allmax001_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en32/default_local001_testloss.csv \
 
 ############################################################################################################
 
-europv7-en32, VANILLA TRANSFORMER, allmax 0.03
-bsub -o job_outputs-europv7-en32/allmax003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en32, VANILLA TRANSFORMER, local 0.02
+bsub -o job_outputs-europv7-en32/local002 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
   data-bin/europv7-en32 \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax003 \
-  --jason-log-dir jason-lm-logs-europv7-en32/allmax003 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local002 \
+  --jason-log-dir jason-lm-logs-europv7-en32/local002 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
@@ -96,24 +95,24 @@ bsub -o job_outputs-europv7-en32/allmax003 -W 24:00 -R "rusage[mem=32000, ngpus_
   --max-tokens 512 --update-freq 64 \
   --max-update 80000 \
   --no-epoch-checkpoints --no-last-checkpoints \
-  --criterion reg_allmax_cross_entropy --beta-coefficient 0.03 \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.02 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-en32 \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax003/checkpoint_best.pt \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local002/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en32/default_allmax003_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en32/default_local002_testloss.csv \
 
 ############################################################################################################
 
-europv7-en32, VANILLA TRANSFORMER, allmax 0.05
-bsub -o job_outputs-europv7-en32/allmax005 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en32, VANILLA TRANSFORMER, local 0.03
+bsub -o job_outputs-europv7-en32/local003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
   data-bin/europv7-en32 \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax005 \
-  --jason-log-dir jason-lm-logs-europv7-en32/allmax005 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local003 \
+  --jason-log-dir jason-lm-logs-europv7-en32/local003 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
@@ -122,24 +121,24 @@ bsub -o job_outputs-europv7-en32/allmax005 -W 24:00 -R "rusage[mem=32000, ngpus_
   --max-tokens 512 --update-freq 64 \
   --max-update 80000 \
   --no-epoch-checkpoints --no-last-checkpoints \
-  --criterion reg_allmax_cross_entropy --beta-coefficient 0.05 \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.03 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-en32 \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax005/checkpoint_best.pt \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en32/default_allmax005_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en32/default_local003_testloss.csv \
 
 ############################################################################################################
 
-europv7-en32, VANILLA TRANSFORMER, allmax 0.1
-bsub -o job_outputs-europv7-en32/allmax01 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+europv7-en32, VANILLA TRANSFORMER, local 0.05
+bsub -o job_outputs-europv7-en32/local005 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
   data-bin/europv7-en32 \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax01 \
-  --jason-log-dir jason-lm-logs-europv7-en32/allmax01 \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local005 \
+  --jason-log-dir jason-lm-logs-europv7-en32/local005 \
   --arch transformer_lm --share-decoder-input-output-embed \
   --dropout 0.1 \
   --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
@@ -148,38 +147,12 @@ bsub -o job_outputs-europv7-en32/allmax01 -W 24:00 -R "rusage[mem=32000, ngpus_e
   --max-tokens 512 --update-freq 64 \
   --max-update 80000 \
   --no-epoch-checkpoints --no-last-checkpoints \
-  --criterion reg_allmax_cross_entropy --beta-coefficient 0.1 \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.05 \
 
 bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-en32 \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax01/checkpoint_best.pt \
+    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/local005/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en32/default_allmax01_testloss.csv \
-
-############################################################################################################
-
-europv7-en32, VANILLA TRANSFORMER, allmax 0.2
-bsub -o job_outputs-europv7-en32/allmax02 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
-  fairseq-train --task language_modeling \
-  data-bin/europv7-en32 \
-  --save-dir /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax02 \
-  --jason-log-dir jason-lm-logs-europv7-en32/allmax02 \
-  --arch transformer_lm --share-decoder-input-output-embed \
-  --dropout 0.1 \
-  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
-  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
-  --tokens-per-sample 512 --sample-break-mode none \
-  --max-tokens 512 --update-freq 64 \
-  --max-update 80000 \
-  --no-epoch-checkpoints --no-last-checkpoints \
-  --criterion reg_allmax_cross_entropy --beta-coefficient 0.2 \
-
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
-fairseq-eval-lm data-bin/europv7-en32 \
-    --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en32/allmax02/checkpoint_best.pt \
-    --batch-size 2 \
-    --tokens-per-sample 512 \
-    --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en32/default_allmax02_testloss.csv \
+    --jason-test-output jason-lm-test-logs-europv7-en32/default_local005_testloss.csv \
