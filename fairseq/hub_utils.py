@@ -121,10 +121,15 @@ class GeneratorHubInterface(nn.Module):
 
     def sample(self, sentences: List[str], beam: int = 1, verbose: bool = False, **kwargs) -> List[str]:
         if isinstance(sentences, str):
-            return self.sample([sentences], beam=beam, verbose=verbose, **kwargs)[0]
+            sentences = [sentences]
+        #     return self.sample([sentences], beam=beam, verbose=verbose, **kwargs)[0]
         tokenized_sentences = [self.encode(sentence) for sentence in sentences]
         batched_hypos = self.generate(tokenized_sentences, beam, verbose, **kwargs)
-        return [self.decode(hypos[0]['tokens']) for hypos in batched_hypos]
+        log_probs = batched_hypos[0][0]['positional_scores'].cpu().numpy()
+        returned_str = [self.decode(hypos[0]['tokens']) for hypos in batched_hypos]
+        if len(returned_str) == 1:
+            returned_str = returned_str[0]
+        return returned_str, log_probs
 
     def score(self, sentences: List[str], **kwargs):
         if isinstance(sentences, str):

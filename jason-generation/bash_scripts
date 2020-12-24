@@ -1,0 +1,35 @@
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+
+Europarl - EN
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-en allvar00-checkpoint-best.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-en allvar001-checkpoint-best.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-en allvar003-checkpoint-best.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-en allvar005-checkpoint-best.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-en local0003-checkpoint-best.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-en local001-checkpoint-best.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-en local003-checkpoint-best.pt
+
+Europarl - DE
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-de allvar00-checkpoint-best.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-de allvar003-checkpoint-best.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py generation-checkpoints/europarl-de local002-checkpoint-best.pt
