@@ -168,3 +168,7 @@ generation_checkpoints*
 generated-outputs*
 generation-checkpoints*
 examples/language_model/europv7*
+examples/language_model/w40-*
+examples/language_model/w40*
+examples/language_model/m_wiki
+examples/language_model/m_wiki*
