@@ -54,10 +54,17 @@ def count_ngrams(file_path):
 
 if __name__ == "__main__":
 
+    count_ngrams('generated-outputs/europarl-en/allvar005-checkpoint-best_words.txt')
+    count_ngrams('generated-outputs/europarl-en/allvar003-checkpoint-best_words.txt')
+    count_ngrams('generated-outputs/europarl-en/allvar001-checkpoint-best_words.txt')
 
-    count_ngrams('generated-outputs/europarl-de/allvar00-checkpoint-best_words.txt')
-    count_ngrams('generated-outputs/europarl-de/allvar003-checkpoint-best_words.txt')
-    count_ngrams('generated-outputs/europarl-de/local002-checkpoint-best_words.txt')
+    # count_ngrams('generated-outputs/europarl-en/local0003-checkpoint-best_words.txt')
+    # count_ngrams('generated-outputs/europarl-en/local001-checkpoint-best_words.txt')
+    # count_ngrams('generated-outputs/europarl-en/local003-checkpoint-best_words.txt')
+
+    # count_ngrams('generated-outputs/europarl-de/allvar00-checkpoint-best_words.txt')
+    # count_ngrams('generated-outputs/europarl-de/allvar003-checkpoint-best_words.txt')
+    # count_ngrams('generated-outputs/europarl-de/local002-checkpoint-best_words.txt')
 
     # count_ngrams('generated-outputs/europarl-en/allvar00-checkpoint-best_words.txt')
     # count_ngrams('generated-outputs/europarl-en/allvar003-checkpoint-best_words.txt')
