@@ -1,0 +1,289 @@
+############################################################################################################
+to test: 
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+############################################################################################################
+
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.0
+bsub -o job_outputs-mwiki_uz/local00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local00 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local00 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.0 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local00/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local00_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.003
+bsub -o job_outputs-mwiki_uz/local0003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local0003 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local0003 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.003 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local0003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local0003_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.006
+bsub -o job_outputs-mwiki_uz/local0006 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local0006 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local0006 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.006 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local0006/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local0006_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.008
+bsub -o job_outputs-mwiki_uz/local0008 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local0008 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local0008 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.008 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local0008/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local0008_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.01
+bsub -o job_outputs-mwiki_uz/local001 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local001 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local001 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.01 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local001/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local001_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.02
+bsub -o job_outputs-mwiki_uz/local002 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local002 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local002 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.02 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local002/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local002_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.03
+bsub -o job_outputs-mwiki_uz/local003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local003 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local003 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.03 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local003_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.04
+bsub -o job_outputs-mwiki_uz/local004 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local004 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local004 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.04 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local004/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local004_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.05
+bsub -o job_outputs-mwiki_uz/local005 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local005 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local005 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.05 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local005/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local005_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.1
+bsub -o job_outputs-mwiki_uz/local01 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local01 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local01 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.1 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local01/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local01_testloss.csv \
+
+############################################################################################################
+
+mwiki_uz, VANILLA TRANSFORMER, local 0.2
+bsub -o job_outputs-mwiki_uz/local02 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/mwiki_uz \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local02 \
+  --jason-log-dir jason-lm-logs-mwiki_uz/local02 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_local_cross_entropy --beta-coefficient 0.2 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/mwiki_uz \
+    --path /cluster/scratch//jaswei/checkpoints-lm-mwiki_uz/local02/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-mwiki_uz/default_local02_testloss.csv \
