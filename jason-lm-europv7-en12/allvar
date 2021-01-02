@@ -20,13 +20,13 @@ bsub -o job_outputs-europv7-en12/allvar00 -W 24:00 -R "rusage[mem=32000, ngpus_e
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.0 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-en12 \
     --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en12/allvar00/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en12/default_allvar00_testloss.csv \
+    --jason-test-output tmp/jason-lm-test-logs-europv7-en12/default_allvar00_testloss.csv \
 
 ############################################################################################################
 europv7-en12, VANILLA TRANSFORMER, allvar 0.007
@@ -97,13 +97,13 @@ bsub -o job_outputs-europv7-en12/allvar002 -W 24:00 -R "rusage[mem=32000, ngpus_
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.02 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-en12 \
     --path /cluster/scratch//jaswei/checkpoints-lm-europv7-en12/allvar002/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-europv7-en12/default_allvar002_testloss.csv \
+    --jason-test-output tmp/jason-lm-test-logs-europv7-en12/default_allvar002_testloss.csv \
 
 ############################################################################################################
 

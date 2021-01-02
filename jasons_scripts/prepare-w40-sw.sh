@@ -5,6 +5,6 @@ fairseq-preprocess \
     --nwordssrc 128000 \
     --trainpref $TEXT/swmoses_train.txt \
     --validpref $TEXT/swmoses_dev.txt \
-    --testpref $TEXT/swmoses_test.txt \
+    --testpref $TEXT/swmoses_testfull.txt \
     --destdir data-bin/mwiki_sw \
     --workers 20

@@ -20,7 +20,7 @@ bsub -o job_outputs-europv7-de/allvar00 -W 48:00 -R "rusage[mem=32000, ngpus_exc
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.0 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-de \
     --path /cluster/scratch//jaswei/checkpoints-lm-europv7-de/allvar00/checkpoint_best.pt \
     --batch-size 2 \
@@ -98,7 +98,7 @@ bsub -o job_outputs-europv7-de/allvar002 -W 48:00 -R "rusage[mem=32000, ngpus_ex
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.02 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/europv7-de \
     --path /cluster/scratch//jaswei/checkpoints-lm-europv7-de/allvar002/checkpoint_best.pt \
     --batch-size 2 \

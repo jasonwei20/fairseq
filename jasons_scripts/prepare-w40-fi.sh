@@ -2,7 +2,7 @@
 TEXT=examples/language_model/w40-fi
 fairseq-preprocess \
     --only-source \
-    --nwordssrc 64000 \
+    --nwordssrc 128000 \
     --trainpref $TEXT/fimoses_wiki_train.txt \
     --validpref $TEXT/fimoses_wiki_dev.txt \
     --testpref $TEXT/fimoses_wiki_test.txt \
