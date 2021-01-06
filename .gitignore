@@ -172,3 +172,5 @@ examples/language_model/w40-*
 examples/language_model/w40*
 examples/language_model/m_wiki
 examples/language_model/m_wiki*
+z-old*
+examples/language_model/mwiki*

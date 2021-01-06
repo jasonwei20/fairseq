@@ -20,13 +20,13 @@ bsub -o job_outputs-w40-tr/allvar00 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.0 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/w40-tr \
     --path /cluster/scratch//jaswei/checkpoints-lm-w40-tr/allvar00/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-w40-tr/default_allvar00_testloss.csv \
+    --jason-test-output tmp/jason-lm-test-logs-w40-tr/default_allvar00_testloss.csv \
 
 ############################################################################################################
 
@@ -82,6 +82,32 @@ fairseq-eval-lm data-bin/w40-tr \
 
 ############################################################################################################
 
+w40-tr, VANILLA TRANSFORMER, ALLVAR 0.02
+bsub -o job_outputs-w40-tr/allvar002 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/w40-tr \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-w40-tr/allvar002 \
+  --jason-log-dir jason-lm-logs-w40-tr/allvar002 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.02 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/w40-tr \
+    --path /cluster/scratch//jaswei/checkpoints-lm-w40-tr/allvar002/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-w40-tr/default_allvar002_testloss.csv \
+
+############################################################################################################
+
 w40-tr, VANILLA TRANSFORMER, ALLVAR 0.03
 bsub -o job_outputs-w40-tr/allvar003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
   fairseq-train --task language_modeling \
@@ -98,13 +124,39 @@ bsub -o job_outputs-w40-tr/allvar003 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p
   --no-epoch-checkpoints --no-last-checkpoints \
   --criterion reg_allvar_cross_entropy --beta-coefficient 0.03 \
 
-bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
 fairseq-eval-lm data-bin/w40-tr \
     --path /cluster/scratch//jaswei/checkpoints-lm-w40-tr/allvar003/checkpoint_best.pt \
     --batch-size 2 \
     --tokens-per-sample 512 \
     --context-window 400 \
-    --jason-test-output jason-lm-test-logs-w40-tr/default_allvar003_testloss.csv \
+    --jason-test-output tmp/jason-lm-test-logs-w40-tr/default_allvar003_testloss.csv \
+
+############################################################################################################
+
+w40-tr, VANILLA TRANSFORMER, ALLVAR 0.04
+bsub -o job_outputs-w40-tr/allvar004 -W 24:00 -R "rusage[mem=32000, ngpus_excl_p=1]" \
+  fairseq-train --task language_modeling \
+  data-bin/w40-tr \
+  --save-dir /cluster/scratch//jaswei/checkpoints-lm-w40-tr/allvar004 \
+  --jason-log-dir jason-lm-logs-w40-tr/allvar004 \
+  --arch transformer_lm --share-decoder-input-output-embed \
+  --dropout 0.1 \
+  --optimizer adam --adam-betas '(0.9, 0.98)' --weight-decay 0.01 --clip-norm 0.0 \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-updates 4000 --warmup-init-lr 1e-07 \
+  --tokens-per-sample 512 --sample-break-mode none \
+  --max-tokens 512 --update-freq 64 \
+  --max-update 40000 \
+  --no-epoch-checkpoints --no-last-checkpoints \
+  --criterion reg_allvar_cross_entropy --beta-coefficient 0.04 \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm data-bin/w40-tr \
+    --path /cluster/scratch//jaswei/checkpoints-lm-w40-tr/allvar004/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-w40-tr/default_allvar004_testloss.csv \
 
 ############################################################################################################
 

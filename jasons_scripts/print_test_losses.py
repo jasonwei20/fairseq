@@ -35,12 +35,16 @@ if __name__ == "__main__":
         # "tmp/jason-lm-test-logs-europv7-en32/default_allvar00_testloss.csv",
         # "tmp/jason-lm-test-logs-europv7-en32/default_allvar001_testloss.csv",
         # "tmp/jason-lm-test-logs-europv7-en32/default_local001_testloss.csv",
-        "tmp/jason-lm-test-logs-europv7-en2_s0/default_allvar00_testloss.csv",
-        "tmp/jason-lm-test-logs-europv7-en2_s0/default_allvar002_testloss.csv",
-        "tmp/jason-lm-test-logs-europv7-en2_s0/default_local001_testloss.csv",
-        "tmp/jason-lm-test-logs-europv7-en8_s0/default_allvar00_testloss.csv",
-        "tmp/jason-lm-test-logs-europv7-en8_s0/default_allvar002_testloss.csv",
-        "tmp/jason-lm-test-logs-europv7-en8_s0/default_local0008_testloss.csv",
+        # "tmp/jason-lm-test-logs-europv7-en2_s0/default_allvar00_testloss.csv",
+        # "tmp/jason-lm-test-logs-europv7-en2_s0/default_allvar002_testloss.csv",
+        # "tmp/jason-lm-test-logs-europv7-en2_s0/default_local001_testloss.csv",
+        # "tmp/jason-lm-test-logs-europv7-en8_s0/default_allvar00_testloss.csv",
+        # "tmp/jason-lm-test-logs-europv7-en8_s0/default_allvar002_testloss.csv",
+        # "tmp/jason-lm-test-logs-europv7-en8_s0/default_local0008_testloss.csv",
+        # "tmp/jason-lm-test-logs-europv7-en2/default_local001_testloss.csv"
+        "tmp/jason-lm-test-logs-w40-fi/default_allvar00_testloss.csv",
+        "tmp/jason-lm-test-logs-w40-fi/default_allvar001_testloss.csv",
+        "tmp/jason-lm-test-logs-w40-fi/default_local0006_testloss.csv",
     ]
     for loss_file in loss_file_list:
         file_mean = get_file_mean(loss_file)

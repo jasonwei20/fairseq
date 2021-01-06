@@ -28,7 +28,7 @@ def plot_many_lineplot(
         x_min, y_at_x_min, convergence_index = find_y_at_lowest_x(x_list, y_list)
         print(f"for {y_label}, best nll={x_min:.3f} and uid loss at best nll={y_at_x_min:.3f}")
         plt.plot(x_min, y_at_x_min, color + 'x', markersize=10, label=y_label)
-        # plt.plot(x_list, y_list, color, linewidth=0.5, label=y_label)
+        plt.plot(x_list, y_list, color, linewidth=0.5, label=y_label)
 
     plt.xlabel(x_ax_label)
     plt.ylabel(y_ax_label)
@@ -43,9 +43,9 @@ def plot_many_lineplot(
 
 def read_file(file_path, graph_type):
     data = pd.read_csv(file_path)
-    updates = list(data['updates'])[:100]
-    val_loss = list(data['val_loss'])[:100]
-    val_uid_loss = list(data['val_uid_loss'])[:100]
+    updates = list(data['updates'])[:200]
+    val_loss = list(data['val_loss'])[:200]
+    val_uid_loss = list(data['val_uid_loss'])[:200]
 
     if graph_type == 'nll-uid':
         return val_loss, val_uid_loss
@@ -129,27 +129,45 @@ if __name__ == "__main__":
     # )
     
     #comparing UID beta
+    # plot_nll_uid(
+    #     file_path_list = [
+    #         'jason-lm-logs-wt2/withuid_dropout01_allvar00/train_logs_backup.csv',
+    #         'jason-lm-logs-wt2/withuid_dropout01_allvar001/train_logs_backup.csv',
+    #         'jason-lm-logs-wt2/withuid_dropout01_allvar003/train_logs_backup.csv',
+    #         'jason-lm-logs-wt2/withuid_dropout01_allvar005/train_logs_backup.csv',
+    #         'jason-lm-logs-wt2/withuid_dropout01_allvar006/train_logs_backup.csv',
+    #         'jason-lm-logs-wt2/withuid_dropout01_allvar007/train_logs_backup.csv',
+    #         'jason-lm-logs-wt2/withuid_dropout01_allvar008/train_logs_backup.csv',
+    #         'jason-lm-logs-wt2/withuid_dropout01_allvar01/train_logs_backup.csv',
+    #     ],
+    #     y_labels_list = [
+    #         'dropout 0.1 + uid var reg 0.0', 
+    #         'dropout 0.1 + uid var reg 0.01', 
+    #         'dropout 0.1 + uid var reg 0.03', 
+    #         'dropout 0.1 + uid var reg 0.05', 
+    #         'dropout 0.1 + uid var reg 0.06', 
+    #         'dropout 0.1 + uid var reg 0.07', 
+    #         'dropout 0.1 + uid var reg 0.08', 
+    #         'dropout 0.1 + uid var reg 0.1', 
+    #     ],
+    #     y_ax_label = 'uid loss: variance on dev set',
+    #     output_png_path = 'jason-plots/var_nll_plot_beta.png'
+    # )
+
+    #new
     plot_nll_uid(
         file_path_list = [
-            'jason-lm-logs-wt2/withuid_dropout01_allvar00/train_logs_backup.csv',
-            'jason-lm-logs-wt2/withuid_dropout01_allvar001/train_logs_backup.csv',
-            'jason-lm-logs-wt2/withuid_dropout01_allvar003/train_logs_backup.csv',
-            'jason-lm-logs-wt2/withuid_dropout01_allvar005/train_logs_backup.csv',
-            'jason-lm-logs-wt2/withuid_dropout01_allvar006/train_logs_backup.csv',
-            'jason-lm-logs-wt2/withuid_dropout01_allvar007/train_logs_backup.csv',
-            'jason-lm-logs-wt2/withuid_dropout01_allvar008/train_logs_backup.csv',
-            'jason-lm-logs-wt2/withuid_dropout01_allvar01/train_logs_backup.csv',
+            'jason-lm-logs-europv7-en/allvar00/train_logs_backup.csv',
+            'jason-lm-logs-europv7-en/allvar001/train_logs_backup.csv',
+            'jason-lm-logs-europv7-en/allvar002/train_logs_backup.csv',
+            'jason-lm-logs-europv7-en/allvar003/train_logs_backup.csv',
         ],
         y_labels_list = [
-            'dropout 0.1 + uid var reg 0.0', 
-            'dropout 0.1 + uid var reg 0.01', 
-            'dropout 0.1 + uid var reg 0.03', 
-            'dropout 0.1 + uid var reg 0.05', 
-            'dropout 0.1 + uid var reg 0.06', 
-            'dropout 0.1 + uid var reg 0.07', 
-            'dropout 0.1 + uid var reg 0.08', 
-            'dropout 0.1 + uid var reg 0.1', 
+            'uid var reg 0.0', 
+            'uid var reg 0.01', 
+            'uid var reg 0.02', 
+            'uid var reg 0.03', 
         ],
         y_ax_label = 'uid loss: variance on dev set',
-        output_png_path = 'jason-plots/var_nll_plot_beta.png'
+        output_png_path = 'jason-plots/europv7-en-test.png'
     )

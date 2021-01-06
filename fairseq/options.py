@@ -543,6 +543,8 @@ def add_common_eval_args(group):
                        help='path to save eval results (optional)"')
     group.add_argument('--jason-test-output', metavar='FILE',
                        help='csv file to output losses on the test set')
+    group.add_argument('--jason-test-uid-output', metavar='FILE',
+                       help='csv file to output losses on the test set')
     # fmt: on
 
 

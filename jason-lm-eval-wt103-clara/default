@@ -1,0 +1,84 @@
+
+--- NEW ---
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_base/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/base_testloss.csv \
+
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_allvar003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/base_testloss.csv \
+
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_allvar005/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/base_testloss.csv \
+
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_alllc001/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/base_testloss.csv \
+
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_allvar002/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/base_testloss.csv \
+
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_alllc008/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/base_testloss.csv \
+
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_allvar001/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/wt103_asdf_allvar001_testloss.csv \
+
+
+
+--- OLD ---
+
+EVALUATE DEFAULT MODEL
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_base/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/base_testloss.csv \
+
+EVALUATE ALLVAR003
+bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
+fairseq-eval-lm /cluster/project/infk/cotterell/jason/wikitext-103/ \
+    --path /cluster/project/infk/cotterell/jason/lm-wt103_asdf_allvar003/checkpoint_best.pt \
+    --batch-size 2 \
+    --tokens-per-sample 512 \
+    --context-window 400 \
+    --jason-test-output jason-lm-test-logs-wt103-clara/allvar003_testloss.csv \

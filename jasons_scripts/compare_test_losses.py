@@ -29,8 +29,8 @@ def read_file(file_path):
 
 if __name__ == "__main__":
 
-    loss_list_1_file = "jason-lm-test-logs-europv7-es/default_local001_testloss.csv" #this one should be lower (better)
-    loss_list_2_file = "jason-lm-test-logs-europv7-es/default_allvar00_testloss.csv"
+    loss_list_1_file = "jason-lm-test-logs-w40-tl/default_allvar004_testloss.csv" #this one should be lower (better)
+    loss_list_2_file = "jason-lm-test-logs-w40-tl/default_allvar00_testloss.csv"
 
     loss_list_1 = read_file(loss_list_1_file)
     loss_list_2 = read_file(loss_list_2_file)

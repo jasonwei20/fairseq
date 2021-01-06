@@ -1,5 +1,5 @@
 #!/bin/bash
-TEXT=examples/language_model/m_wiki_yo/
+TEXT=examples/language_model/mwiki-yo
 fairseq-preprocess \
     --only-source \
     --nwordssrc 128000 \
