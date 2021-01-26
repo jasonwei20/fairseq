@@ -31,7 +31,7 @@ seq_len_list = []
 
 with open(out_words, 'a' if num_lines > 0 else 'w') as f:
     with open(out_probs, 'a' if num_lines > 0 else 'w') as f_probs:
-        for i in range(start+num_lines, start+num):
+        for i in tqdm(range(start+num_lines, start+num)):
             line, log_probs = custom_lm.sample('',
                 seed=i, 
                 unnormalized=True, 

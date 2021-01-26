@@ -3,33 +3,82 @@ bsub -I -R "rusage[mem=32000, ngpus_excl_p=1]" \
 Europarl - EN
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-en allvar00-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en allvar00-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-en allvar001-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en allvar0006-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-en allvar003-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en allvar0008-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-en allvar005-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en allvar001-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-en local0003-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en allvar002-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-en local001-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en allvar003-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-en local003-checkpoint-best.pt
-
-Europarl - DE
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en allvar005-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-de allvar00-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en local0006-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-de allvar003-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en local0008-checkpoint.pt
 
 bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
-python jason-generation/generate_sequences.py generation-checkpoints/europarl-de local002-checkpoint-best.pt
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en local001-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en local002-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en local003-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europarl-en local005-checkpoint.pt
+
+
+
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en allvar00-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en allvar001-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en allvar002-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en allvar003-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en allvar004-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en allvar005-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en allvar006-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en local0006-checkpoint.pt
+
+bsub -R "rusage[mem=32000, ngpus_excl_p=1]" \
+python jason-generation/generate_sequences.py /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en local0008-checkpoint.pt
+
+
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/allvar00/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/allvar00-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/allvar001/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/allvar001-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/allvar002/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/allvar002-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/allvar003/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/allvar003-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/allvar004/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/allvar004-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/allvar005/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/allvar005-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/allvar006/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/allvar006-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/local0006/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/local0006-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/local0008/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/local0008-checkpoint.pt
+cp /cluster/scratch//jaswei/checkpoints-lm-europv7-en/local001/checkpoint_best.pt  /cluster/work/cotterell/jason/jasons_saved_checkpoints/generation-checkpoints/europv7-en/local001-checkpoint.pt

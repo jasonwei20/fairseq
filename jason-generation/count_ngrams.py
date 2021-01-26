@@ -40,7 +40,7 @@ def count_ngrams(file_path):
     print(f"\n{file_path}")
     lines = open(file_path, 'r').readlines()
 
-    for n in range(1, 5):
+    for n in range(2, 4):
         
         all_ngrams = []
         for line in lines:
@@ -54,9 +54,24 @@ def count_ngrams(file_path):
 
 if __name__ == "__main__":
 
-    count_ngrams('generated-outputs/europarl-en/allvar005-checkpoint-best_words.txt')
-    count_ngrams('generated-outputs/europarl-en/allvar003-checkpoint-best_words.txt')
-    count_ngrams('generated-outputs/europarl-en/allvar001-checkpoint-best_words.txt')
+    # count_ngrams('generated-outputs/allvar00-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/europarl-en/allvar0006-checkpoint_words.txt')
+    count_ngrams('generated-outputs/europarl-en/allvar0008-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/allvar001-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/allvar002-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/allvar003-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/europarl-en/allvar005-checkpoint_words.txt')
+
+    # count_ngrams('generated-outputs/europarl-en/local0006-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/local0008-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/local001-checkpoint_words.txt')
+    count_ngrams('generated-outputs/europarl-en/local002-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/local003-checkpoint_words.txt')
+    # count_ngrams('generated-outputs/europarl-en/local005-checkpoint_words.txt')
+
+    # count_ngrams('generated-outputs/europarl-en/allvar005-checkpoint-best_words.txt')
+    # count_ngrams('generated-outputs/europarl-en/allvar003-checkpoint-best_words.txt')
+    # count_ngrams('generated-outputs/europarl-en/allvar001-checkpoint-best_words.txt')
 
     # count_ngrams('generated-outputs/europarl-en/local0003-checkpoint-best_words.txt')
     # count_ngrams('generated-outputs/europarl-en/local001-checkpoint-best_words.txt')
